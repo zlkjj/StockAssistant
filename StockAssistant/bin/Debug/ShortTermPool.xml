@@ -1,0 +1,113 @@
+<?xml version="1.0" standalone="yes"?>
+<StockPool xmlns="http://tempuri.org/StockPool.xsd">
+  <ObservedStock>
+    <Name>中小B</Name>
+    <Number>150107</Number>
+    <OriginPrice>0.5</OriginPrice>
+    <CurrentPrice>0.412</CurrentPrice>
+    <Count>40000</Count>
+    <Increase>-0.176</Increase>
+    <Note />
+    <Algorithm />
+  </ObservedStock>
+  <ObservedStock>
+    <Name>上海凯宝 </Name>
+    <Number>300039</Number>
+    <OriginPrice>15.04</OriginPrice>
+    <CurrentPrice>13.190</CurrentPrice>
+    <Count>2000</Count>
+    <Increase>-0.1230053191489361702127659574</Increase>
+    <Note />
+    <Algorithm />
+  </ObservedStock>
+  <ObservedStock>
+    <Name>上海凯宝 </Name>
+    <Number>300039</Number>
+    <OriginPrice>14.84</OriginPrice>
+    <CurrentPrice>13.190</CurrentPrice>
+    <Count>1000</Count>
+    <Increase>-0.1111859838274932614555256065</Increase>
+    <Note />
+    <Algorithm />
+  </ObservedStock>
+  <ObservedStock>
+    <Name>中小B</Name>
+    <Number>150107</Number>
+    <OriginPrice>0.604</OriginPrice>
+    <CurrentPrice>0.412</CurrentPrice>
+    <Count>20000</Count>
+    <Increase>-0.3178807947019867549668874172</Increase>
+    <Note />
+    <Algorithm />
+  </ObservedStock>
+  <ObservedStock>
+    <Name>中小B</Name>
+    <Number>150107</Number>
+    <OriginPrice>0.618</OriginPrice>
+    <CurrentPrice>0.412</CurrentPrice>
+    <Count>20000</Count>
+    <Increase>-0.3333333333333333333333333333</Increase>
+    <Note />
+    <Algorithm />
+  </ObservedStock>
+  <ObservedStock>
+    <Name>中小B</Name>
+    <Number>150107</Number>
+    <OriginPrice>0.540</OriginPrice>
+    <CurrentPrice>0.412</CurrentPrice>
+    <Count>40000</Count>
+    <Increase>-0.237037037037037037037037037</Increase>
+    <Note />
+    <Algorithm />
+  </ObservedStock>
+  <ObservedStock>
+    <Name>中小B</Name>
+    <Number>150107</Number>
+    <OriginPrice>0.528</OriginPrice>
+    <CurrentPrice>0.412</CurrentPrice>
+    <Count>20000</Count>
+    <Increase>-0.2196969696969696969696969697</Increase>
+    <Note />
+    <Algorithm />
+  </ObservedStock>
+  <ObservedStock>
+    <Name>中小B</Name>
+    <Number>150107</Number>
+    <OriginPrice>0.474</OriginPrice>
+    <CurrentPrice>0.412</CurrentPrice>
+    <Count>20000</Count>
+    <Increase>-0.1308016877637130801687763713</Increase>
+    <Note />
+    <Algorithm />
+  </ObservedStock>
+  <ObservedStock>
+    <Name>中小B</Name>
+    <Number>150107</Number>
+    <OriginPrice>0.417</OriginPrice>
+    <CurrentPrice>0.412</CurrentPrice>
+    <Count>40000</Count>
+    <Increase>-0.0119904076738609112709832134</Increase>
+    <Note />
+    <Algorithm />
+  </ObservedStock>
+  <ObservedStock>
+    <Name>上海凯宝 </Name>
+    <Number>300039</Number>
+    <OriginPrice>13.92</OriginPrice>
+    <CurrentPrice>13.190</CurrentPrice>
+    <Count>1000</Count>
+    <Increase>-0.052442528735632183908045977</Increase>
+    <Note />
+    <Algorithm />
+  </ObservedStock>
+  <ObservedStock>
+    <Name>上海凯宝 </Name>
+    <Number>300039</Number>
+    <OriginPrice>13.28</OriginPrice>
+    <CurrentPrice>13.190</CurrentPrice>
+    <Count>1000</Count>
+    <Increase>-0.0067771084337349397590361446</Increase>
+    <Note />
+    <Algorithm />
+  </ObservedStock>
+</StockPool>

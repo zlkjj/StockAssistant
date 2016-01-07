@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="StockPool" targetNamespace="http://tempuri.org/StockPool.xsd" xmlns:mstns="http://tempuri.org/StockPool.xsd" xmlns="http://tempuri.org/StockPool.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="StockPool" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="StockPool" msprop:Generator_UserDSName="StockPool">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="ObservedStock" msprop:Generator_TableClassName="ObservedStockDataTable" msprop:Generator_TableVarName="tableObservedStock" msprop:Generator_RowChangedName="ObservedStockRowChanged" msprop:Generator_TablePropName="ObservedStock" msprop:Generator_RowDeletingName="ObservedStockRowDeleting" msprop:Generator_RowChangingName="ObservedStockRowChanging" msprop:Generator_RowEvHandlerName="ObservedStockRowChangeEventHandler" msprop:Generator_RowDeletedName="ObservedStockRowDeleted" msprop:Generator_RowClassName="ObservedStockRow" msprop:Generator_UserTableName="ObservedStock" msprop:Generator_RowEvArgName="ObservedStockRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnPropNameInTable="NameColumn" msprop:Generator_UserColumnName="Name" type="xs:string" />
+              <xs:element name="Number" msprop:Generator_ColumnVarNameInTable="columnNumber" msprop:Generator_ColumnPropNameInRow="Number" msprop:Generator_ColumnPropNameInTable="NumberColumn" msprop:Generator_UserColumnName="Number" type="xs:string" minOccurs="0" />
+              <xs:element name="OriginPrice" msprop:Generator_ColumnVarNameInTable="columnOriginPrice" msprop:Generator_ColumnPropNameInRow="OriginPrice" msprop:Generator_ColumnPropNameInTable="OriginPriceColumn" msprop:Generator_UserColumnName="OriginPrice" type="xs:decimal" />
+              <xs:element name="CurrentPrice" msprop:Generator_ColumnVarNameInTable="columnCurrentPrice" msprop:Generator_ColumnPropNameInRow="CurrentPrice" msprop:Generator_ColumnPropNameInTable="CurrentPriceColumn" msprop:Generator_UserColumnName="CurrentPrice" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ExpectedPrice" msprop:Generator_ColumnVarNameInTable="columnExpectedPrice" msprop:Generator_ColumnPropNameInRow="ExpectedPrice" msprop:Generator_ColumnPropNameInTable="ExpectedPriceColumn" msprop:Generator_UserColumnName="ExpectedPrice" type="xs:string" minOccurs="0" />
+              <xs:element name="Count" msprop:Generator_ColumnVarNameInTable="columnCount" msprop:Generator_ColumnPropNameInRow="Count" msprop:Generator_ColumnPropNameInTable="CountColumn" msprop:Generator_UserColumnName="Count" type="xs:unsignedInt" minOccurs="0" />
+              <xs:element name="Increase" msdata:ReadOnly="true" msdata:Expression="(CurrentPrice-OriginPrice)/OriginPrice" msprop:Generator_ColumnVarNameInTable="columnIncrease" msprop:Generator_ColumnPropNameInRow="Increase" msprop:Generator_ColumnPropNameInTable="IncreaseColumn" msprop:Generator_UserColumnName="Increase" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Note" msprop:Generator_ColumnVarNameInTable="columnNote" msprop:Generator_ColumnPropNameInRow="Note" msprop:Generator_ColumnPropNameInTable="NoteColumn" msprop:Generator_UserColumnName="Note" type="xs:string" minOccurs="0" />
+              <xs:element name="Algorithm" msprop:Generator_ColumnVarNameInTable="columnAlgorithm" msprop:Generator_ColumnPropNameInRow="Algorithm" msprop:Generator_ColumnPropNameInTable="AlgorithmColumn" msprop:Generator_UserColumnName="Algorithm" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

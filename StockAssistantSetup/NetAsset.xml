@@ -1,0 +1,15 @@
+<?xml version="1.0" standalone="yes"?>
+<AssetDS xmlns="http://tempuri.org/AssetDS.xsd">
+  <NetValueDT>
+    <Date>2015-01-01</Date>
+    <NetAsset>700000</NetAsset>
+    <NetCount>700000</NetCount>
+    <NetValue>1.0</NetValue>
+  </NetValueDT>  
+  <NetValueDT>
+    <Date>2015-06-06</Date>
+    <NetAsset>918116.720</NetAsset>
+    <NetCount>700000</NetCount>
+    <NetValue>1.3115953142857142857142857143</NetValue>
+  </NetValueDT>
+</AssetDS>

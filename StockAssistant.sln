@@ -1,0 +1,24 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockAssistant", "StockAssistant\StockAssistant.csproj", "{B5D86045-2CC2-45FC-BA42-B7B294E4BADC}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "StockAssistantSetup", "StockAssistantSetup\StockAssistantSetup.vdproj", "{DC7D5953-737C-42B5-82C7-89D7EF3CE103}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B5D86045-2CC2-45FC-BA42-B7B294E4BADC}.Debug|x86.ActiveCfg = Debug|x86
+		{B5D86045-2CC2-45FC-BA42-B7B294E4BADC}.Debug|x86.Build.0 = Debug|x86
+		{B5D86045-2CC2-45FC-BA42-B7B294E4BADC}.Release|x86.ActiveCfg = Release|x86
+		{B5D86045-2CC2-45FC-BA42-B7B294E4BADC}.Release|x86.Build.0 = Release|x86
+		{DC7D5953-737C-42B5-82C7-89D7EF3CE103}.Debug|x86.ActiveCfg = Debug
+		{DC7D5953-737C-42B5-82C7-89D7EF3CE103}.Release|x86.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

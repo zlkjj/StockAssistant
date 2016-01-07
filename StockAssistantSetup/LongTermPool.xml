@@ -1,0 +1,12 @@
+<?xml version="1.0" standalone="yes"?>
+<StockPool xmlns="http://tempuri.org/StockPool.xsd">
+  <ObservedStock>
+    <Name>伊利股份</Name>
+    <Number>600887</Number>
+    <OriginPrice>14.08</OriginPrice>
+    <CurrentPrice>20.02</CurrentPrice>
+    <Count>2000</Count>
+    <Increase>0.421875</Increase>
+    <Note>消费</Note>
+  </ObservedStock>
+</StockPool>

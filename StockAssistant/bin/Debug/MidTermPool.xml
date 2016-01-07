@@ -1,0 +1,23 @@
+<?xml version="1.0" standalone="yes"?>
+<StockPool xmlns="http://tempuri.org/StockPool.xsd">
+  <ObservedStock>
+    <Name>东方园林</Name>
+    <Number>002310</Number>
+    <OriginPrice>33.45</OriginPrice>
+    <CurrentPrice>38.3</CurrentPrice>
+    <Count>1000</Count>
+    <Increase>0.144992526158445440956651719</Increase>
+    <Note />
+    <Algorithm />
+  </ObservedStock>
+  <ObservedStock>
+    <Name>长电科技</Name>
+    <Number>600584</Number>
+    <OriginPrice>20.88</OriginPrice>
+    <CurrentPrice>19.00</CurrentPrice>
+    <Count>1000</Count>
+    <Increase>-0.0900383141762452107279693487</Increase>
+    <Note />
+    <Algorithm />
+  </ObservedStock>
+</StockPool>

@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="AssetDS" targetNamespace="http://tempuri.org/AssetDS.xsd" xmlns:mstns="http://tempuri.org/AssetDS.xsd" xmlns="http://tempuri.org/AssetDS.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="AssetDS" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="AssetDS" msprop:Generator_UserDSName="AssetDS">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="NetValueDT" msprop:Generator_TableClassName="NetValueDTDataTable" msprop:Generator_TableVarName="tableNetValueDT" msprop:Generator_TablePropName="NetValueDT" msprop:Generator_RowDeletingName="NetValueDTRowDeleting" msprop:Generator_RowChangingName="NetValueDTRowChanging" msprop:Generator_RowEvHandlerName="NetValueDTRowChangeEventHandler" msprop:Generator_RowDeletedName="NetValueDTRowDeleted" msprop:Generator_UserTableName="NetValueDT" msprop:Generator_RowChangedName="NetValueDTRowChanged" msprop:Generator_RowEvArgName="NetValueDTRowChangeEvent" msprop:Generator_RowClassName="NetValueDTRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Date" msprop:Generator_ColumnVarNameInTable="columnDate" msprop:Generator_ColumnPropNameInRow="Date" msprop:Generator_ColumnPropNameInTable="DateColumn" msprop:Generator_UserColumnName="Date" type="xs:string" />
+              <xs:element name="NetAsset" msprop:Generator_ColumnVarNameInTable="columnNetAsset" msprop:Generator_ColumnPropNameInRow="NetAsset" msprop:Generator_ColumnPropNameInTable="NetAssetColumn" msprop:Generator_UserColumnName="NetAsset" type="xs:decimal" minOccurs="0" />
+              <xs:element name="NetCount" msprop:Generator_ColumnVarNameInTable="columnNetCount" msprop:Generator_ColumnPropNameInRow="NetCount" msprop:Generator_ColumnPropNameInTable="NetCountColumn" msprop:Generator_UserColumnName="NetCount" type="xs:int" minOccurs="0" />
+              <xs:element name="NetValue" msdata:ReadOnly="true" msdata:Expression="NetAsset/NetCount" msprop:Generator_ColumnVarNameInTable="columnNetValue" msprop:Generator_ColumnPropNameInRow="NetValue" msprop:Generator_ColumnPropNameInTable="NetValueColumn" msprop:Generator_UserColumnName="NetValue" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:NetValueDT" />
+      <xs:field xpath="mstns:Date" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

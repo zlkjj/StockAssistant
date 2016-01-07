@@ -1,0 +1,13 @@
+<?xml version="1.0" standalone="yes"?>
+<StockPool xmlns="http://tempuri.org/StockPool.xsd">
+  <ObservedStock>
+    <Name>五粮液</Name>
+    <Number>000858</Number>
+    <OriginPrice>26.75</OriginPrice>
+    <CurrentPrice>27.75</CurrentPrice>
+    <ExpectedPrice>26</ExpectedPrice>
+    <Increase>0.0373831775700934579439252336</Increase>
+    <Note>消费</Note>
+    <Algorithm>DefinedPrice</Algorithm>
+  </ObservedStock>
+</StockPool>

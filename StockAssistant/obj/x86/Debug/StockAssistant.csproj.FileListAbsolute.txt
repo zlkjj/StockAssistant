@@ -1,0 +1,10 @@
+D:\private\Python\ApplicationForC#\StockAssistant\StockAssistant\obj\x86\Debug\StockAssistant.Form1.resources
+D:\private\Python\ApplicationForC#\StockAssistant\StockAssistant\obj\x86\Debug\StockAssistant.Properties.Resources.resources
+D:\private\Python\ApplicationForC#\StockAssistant\StockAssistant\obj\x86\Debug\StockAssistant.csproj.GenerateResource.Cache
+D:\private\Python\ApplicationForC#\StockAssistant\StockAssistant\bin\Debug\StockAssistant.exe
+D:\private\Python\ApplicationForC#\StockAssistant\StockAssistant\bin\Debug\StockAssistant.pdb
+D:\private\Python\ApplicationForC#\StockAssistant\StockAssistant\obj\x86\Debug\StockAssistant.exe
+D:\private\Python\ApplicationForC#\StockAssistant\StockAssistant\obj\x86\Debug\StockAssistant.pdb
+D:\private\Python\ApplicationForC#\StockAssistant\StockAssistant\obj\x86\Debug\StockAssistant.DealDlg.resources
+D:\private\Python\ApplicationForC#\StockAssistant\StockAssistant\bin\Debug\StockAssistant.exe.config
+D:\private\Python\ApplicationForC#\StockAssistant\StockAssistant\obj\x86\Debug\StockAssistant.NetValue.resources
