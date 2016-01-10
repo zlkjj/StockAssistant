@@ -8,3 +8,6 @@ D:\private\Python\ApplicationForC#\StockAssistant\StockAssistant\obj\x86\Debug\S
 D:\private\Python\ApplicationForC#\StockAssistant\StockAssistant\obj\x86\Debug\StockAssistant.DealDlg.resources
 D:\private\Python\ApplicationForC#\StockAssistant\StockAssistant\bin\Debug\StockAssistant.exe.config
 D:\private\Python\ApplicationForC#\StockAssistant\StockAssistant\obj\x86\Debug\StockAssistant.NetValue.resources
+E:\code\StockAssistant\StockAssistant\bin\Debug\StockAssistant.exe.config
+E:\code\StockAssistant\StockAssistant\obj\x86\Debug\StockAssistant.exe
+E:\code\StockAssistant\StockAssistant\obj\x86\Debug\StockAssistant.pdb

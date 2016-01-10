@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml;
+using System.IO;
+using System.Xml.Serialization;
 
 namespace StockAssistant
 {
@@ -19,21 +21,30 @@ namespace StockAssistant
     }
     public partial class Form1 : Form
     {
-        private decimal LongTermAsset;
-        private decimal LongTermProfit;
-        private decimal TacticalAsset;
-        private decimal TacticalProfit;
-        private decimal ShortTermAsset;
-        private decimal ShortTermProfit;
-        private decimal TotalAsset;
-        private decimal LeftCash;
-        private decimal TotalProfit;
-        private decimal NetValue;
+        public class StatisticData
+        {
+            public StatisticData() { }
+            public decimal LongTermAsset;
+            public decimal LongTermProfit;
+            public decimal TacticalAsset;
+            public decimal TacticalProfit;
+            public decimal ShortTermAsset;
+            public decimal ShortTermProfit;
+            public decimal LeftCash;
+            public decimal CostCash;
+            public decimal TotalAsset;
+            public decimal TotalProfit;
+            public UInt32 curNetCount;
+            public decimal curNetValue;
+        }
+
+        private StatisticData m_statData;
+        private StockPool m_dt;
 
         public Form1()
         {
             InitializeComponent();
-            
+            m_dt = new StockPool();
         }
 
         //private void CreateComboxColumn(DataGridView gridview)
@@ -53,12 +64,7 @@ namespace StockAssistant
         //    gridview.Columns.Add(cmbox);
         //}
 
-        private void observedPoolToolStripMenuItem_Click(object sender, EventArgs e)
-        {            
-            LoadStockPoolFile(dataGridViewObserved, "ObservedPool.xml");
-
-            this.tabControl1.SelectedIndex = 0;
-        }
+       
 
         private void toolStripSave_Click(object sender, EventArgs e)
         {
@@ -82,7 +88,7 @@ namespace StockAssistant
                     break;
                 case 2:
                     {
-                        SaveStockPoolFile(dataGridViewTactical,"MidTermPool.xml");
+                        SaveStockPoolFile(dataGridViewTactical,"TacticalPool.xml");
                     }
                     break;
                 case 3:
@@ -103,12 +109,30 @@ namespace StockAssistant
 
         private void LoadStockPoolFile(DataGridView gridview, string FileName)
         {
-            StockPool dataset = new StockPool();
-            gridview.DataSource = dataset.ObservedTable;
-            //CreateComboxColumn(gridview);
+            switch(FileName)
+            {
+                case "ObservedPool.xml":
+                    gridview.DataSource = m_dt.ObservedTable;
+                    break;
+                case "LongTermPool.xml":
+                    gridview.DataSource = m_dt.LongTermTable;
+                    break;
+                case "TacticalPool.xml":
+                    gridview.DataSource = m_dt.TacticalTable;
+                    break;
+                case "ShortTermPool.xml":
+                    gridview.DataSource = m_dt.ShortTermTable;
+                    break;
+                default:
+                    return;
+            }
+            
             DataTable dt = (DataTable)gridview.DataSource;
-            //dt.Clear();
-            dt.ReadXml(FileName);
+            if (File.Exists(FileName))
+                dt.ReadXml(FileName);
+
+            //CreateComboxColumn(gridview);
+            
             //foreach (DataGridViewRow row in gridview.Rows)
             //{
             //    //row.Cells["Algorithm"].Value = (row.Cells["AlgorithmType"] as DataGridViewComboBoxCell).Value;
@@ -122,43 +146,27 @@ namespace StockAssistant
             if (dt == null)
                 return;
 
-            foreach (DataGridViewRow row in gridview.Rows)
-            {
-                row.Cells["Algorithm"].Value = (row.Cells["AlgorithmType"] as DataGridViewComboBoxCell).Value;
-            }
+            //foreach (DataGridViewRow row in gridview.Rows)
+            //{
+            //    row.Cells["Algorithm"].Value = (row.Cells["AlgorithmType"] as DataGridViewComboBoxCell).Value;
+            //}
 
             dt.WriteXml(FileName);
-        }
-
-        private void longTermPoolToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            LoadStockPoolFile(dataGridViewLongTerm, "LongTermPool.xml");
-            this.tabControl1.SelectedIndex = 1;
-        }
-
-        private void midTermPoolToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            LoadStockPoolFile(dataGridViewTactical, "MidTermPool.xml");
-            this.tabControl1.SelectedIndex = 2;
-        }
-
-        private void shortTermPoolToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            LoadStockPoolFile(dataGridViewShortTerm, "ShortTermPool.xml");
-            this.tabControl1.SelectedIndex = 3;
         }
 
         private void LoadDealRecordPool()
         {
             //clear old data
             this.listView1.Items.Clear();
-            
+
+            if (!File.Exists("DealRecordPool.xml"))
+                return;
+
             XmlDocument doc = new XmlDocument();
             doc.Load("DealRecordPool.xml");
 
             XmlNode firstchild = doc.DocumentElement;
-            this.textBoxCash.Text = firstchild.Attributes["cash"].Value;
-
+            
             foreach (XmlNode node in firstchild.ChildNodes)
             {
 
@@ -176,18 +184,13 @@ namespace StockAssistant
             }           
         }
 
-        private void dealRecordPoolToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            LoadDealRecordPool();
-            this.tabControl1.SelectedIndex = 4;
-        }
+        
 
         private void SaveDealRecord()
         {
             XmlDocument doc = new XmlDocument();
             doc.AppendChild(doc.CreateElement("DealRecordPool"));
-            XmlElement root = doc.DocumentElement;
-            root.SetAttribute("cash", this.textBoxCash.Text);
+            XmlElement root = doc.DocumentElement;            
 
             foreach (ListViewItem item in this.listView1.Items)
             {
@@ -214,13 +217,13 @@ namespace StockAssistant
         {
             SaveStockPoolFile(dataGridViewObserved, "ObservedPool.xml");
             SaveStockPoolFile(dataGridViewLongTerm, "LongTermPool.xml");
-            SaveStockPoolFile(dataGridViewTactical, "MidTermPool.xml");
+            SaveStockPoolFile(dataGridViewTactical, "TacticalPool.xml");
             SaveStockPoolFile(dataGridViewShortTerm, "ShortTermPool.xml");
             SaveDealRecord();
             NetAssetdataset.WriteXml("NetAsset.xml");
         }
 
-        private void calculateToolStripMenuItem_Click(object sender, EventArgs e)
+        private void BuyToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DealDlg dlg = new DealDlg();
 
@@ -365,7 +368,7 @@ namespace StockAssistant
 
         private void DeleteFromStockPool(DataGridView gridview, int index)
         {
-            StockPool.ObservedStockDataTable dt = (StockPool.ObservedStockDataTable)gridview.DataSource;
+            DataTable dt = (DataTable)gridview.DataSource;
             dt.Rows.RemoveAt(index);
         }
 
@@ -413,10 +416,24 @@ namespace StockAssistant
         {
             LoadStockPoolFile(dataGridViewObserved, "ObservedPool.xml");
             LoadStockPoolFile(dataGridViewLongTerm, "LongTermPool.xml");
-            LoadStockPoolFile(dataGridViewTactical, "MidTermPool.xml");
+            LoadStockPoolFile(dataGridViewTactical, "TacticalPool.xml");
             LoadStockPoolFile(dataGridViewShortTerm, "ShortTermPool.xml");
             LoadDealRecordPool();
-            NetAssetdataset.ReadXml("NetAsset.xml");
+
+            //Deserialize StatisticData
+            if (File.Exists("StatisticData.xml"))
+            {
+                XmlSerializer xs = new XmlSerializer(typeof(StatisticData));
+                m_statData = (StatisticData)xs.Deserialize(new XmlTextReader("StatisticData.xml"));
+            }
+            else
+                m_statData = new StatisticData();
+
+            if (File.Exists("NetAsset.xml"))
+                NetAssetdataset.ReadXml("NetAsset.xml");
+            else
+                NetAssetdataset = new AssetDS();
+
             this.tabControl1.SelectedIndex = 0;
         }
 
@@ -502,83 +519,7 @@ namespace StockAssistant
             }
         }
 
-        private void dataGridViewLongTerm_Sorted(object sender, EventArgs e)
-        {
-            System.Diagnostics.Trace.WriteLine("Sorted");
-            
-            string colName = this.dataGridViewLongTerm.SortedColumn.Name;
-            SortOrder order = this.dataGridViewLongTerm.SortOrder;
-            if (order == SortOrder.Ascending)
-            {
-                colName += " ASC";
-            }
-            else
-            {
-                colName += " DESC";
-            }
-            StockPool ds = new StockPool();
-           
-            //dataGridViewLongTerm.
-            StockPool.ObservedStockDataTable dt = (StockPool.ObservedStockDataTable)this.dataGridViewLongTerm.DataSource;
-
-            //StockPool ds = (StockPool)dt.DataSet;
-
-            ds.Merge(dt.Select("", colName));
-
-            this.dataGridViewLongTerm.DataSource = ds.ObservedStock;
-        }
-        private void dataGridViewMidTerm_Sorted(object sender, EventArgs e)
-        {
-            System.Diagnostics.Trace.WriteLine("Sorted");
-
-            string colName = this.dataGridViewTactical.SortedColumn.Name;
-            SortOrder order = this.dataGridViewTactical.SortOrder;
-            if (order == SortOrder.Ascending)
-            {
-                colName += " ASC";
-            }
-            else
-            {
-                colName += " DESC";
-            }
-            StockPool ds = new StockPool();
-
-            //dataGridViewMidTerm.
-            StockPool.ObservedStockDataTable dt = (StockPool.ObservedStockDataTable)this.dataGridViewTactical.DataSource;
-
-            //StockPool ds = (StockPool)dt.DataSet;
-
-            ds.Merge(dt.Select("", colName));
-
-            this.dataGridViewTactical.DataSource = ds.ObservedStock;
-        }
-        private void dataGridViewShortTerm_Sorted(object sender, EventArgs e)
-        {
-            System.Diagnostics.Trace.WriteLine("Sorted");
-
-            string colName = this.dataGridViewShortTerm.SortedColumn.Name;
-            SortOrder order = this.dataGridViewShortTerm.SortOrder;
-            if (order == SortOrder.Ascending)
-            {
-                colName += " ASC";
-            }
-            else
-            {
-                colName += " DESC";
-            }
-            StockPool ds = new StockPool();
-
-            //dataGridViewShortTerm.
-            StockPool.ObservedStockDataTable dt = (StockPool.ObservedStockDataTable)this.dataGridViewShortTerm.DataSource;
-
-            //StockPool ds = (StockPool)dt.DataSet;
-
-            ds.Merge(dt.Select("", colName));
-
-            this.dataGridViewShortTerm.DataSource = ds.ObservedStock;
-        }
-
-        private void addStockToolStripMenuItem_Click(object sender, EventArgs e)
+        private void DeleteDealRecordToolStripMenuItem_Click(object sender, EventArgs e)
         {
             foreach(ListViewItem item in this.listView1.SelectedItems)
             {
@@ -614,45 +555,7 @@ namespace StockAssistant
             }
         }
 
-        private void MoveRow(DataGridView targetView)
-        {
-            DataGridView gridview = GetCurrentGridView();
-            if (gridview == null || gridview.SelectedRows.Count == 0)
-                return;
-
-            foreach (DataGridViewRow row in gridview.SelectedRows)
-            {
-                StockPool.ObservedStockDataTable targetdt = (StockPool.ObservedStockDataTable)targetView.DataSource;
-                StockPool.ObservedStockDataTable sourcedt = (StockPool.ObservedStockDataTable)gridview.DataSource;
-
-                targetdt.ImportRow(sourcedt.Rows[row.Index]);
-                sourcedt.Rows.RemoveAt(row.Index);
-            }
-        }
-
-        private void longTermPoolToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            if (this.tabControl1.SelectedIndex == 1 || this.tabControl1.SelectedIndex == 0)
-                return;
-
-            MoveRow(dataGridViewLongTerm);
-        }
-
-        private void midTermPoolToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            if (this.tabControl1.SelectedIndex == 2 || this.tabControl1.SelectedIndex == 0)
-                return;
-
-            MoveRow(dataGridViewTactical);
-        }
-
-        private void shortTermPoolToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            if (this.tabControl1.SelectedIndex == 3 || this.tabControl1.SelectedIndex == 0)
-                return;
-
-            MoveRow(dataGridViewShortTerm);
-        }
+       
 
         
     }
