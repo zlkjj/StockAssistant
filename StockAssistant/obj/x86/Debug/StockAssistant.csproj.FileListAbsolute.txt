@@ -11,3 +11,6 @@ D:\private\Python\ApplicationForC#\StockAssistant\StockAssistant\obj\x86\Debug\S
 E:\code\StockAssistant\StockAssistant\bin\Debug\StockAssistant.exe.config
 E:\code\StockAssistant\StockAssistant\obj\x86\Debug\StockAssistant.exe
 E:\code\StockAssistant\StockAssistant\obj\x86\Debug\StockAssistant.pdb
+D:\private\Python\ApplicationForC#\StockAssistant\StockAssistant\obj\x86\Debug\StockAssistant.csprojResolveAssemblyReference.cache
+D:\private\Python\ApplicationForC#\StockAssistant\StockAssistant\obj\x86\Debug\StockAssistant.PositionDlg.resources
+D:\private\Python\ApplicationForC#\StockAssistant\StockAssistant\obj\x86\Debug\StockAssistant.StatisticInfo.resources

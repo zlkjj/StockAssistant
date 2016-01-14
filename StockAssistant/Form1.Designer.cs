@@ -53,11 +53,11 @@
             this.currentStatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.historyNetValueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.contextMenuStripTabPage = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextMenuStripDealRecord = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.DeleteDealRecordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.dataGridViewObserved = new System.Windows.Forms.DataGridView();
-            this.contextMenuStripDataGrid = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextMenuStripShortTerm = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.g = new System.Windows.Forms.ToolStripMenuItem();
             this.sellToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -75,15 +75,22 @@
             this.columnCount = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnPool = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnProfit = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnReason = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.contextMenuStripLongTerm = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.openPosittionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.closePositionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStripTactical = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.overweightToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.underwweightToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.underPositionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.overweightToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.NetAssetdataset = new StockAssistant.AssetDS();
             this.toolStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
-            this.contextMenuStripTabPage.SuspendLayout();
+            this.contextMenuStripDealRecord.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewObserved)).BeginInit();
-            this.contextMenuStripDataGrid.SuspendLayout();
+            this.contextMenuStripShortTerm.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLongTerm)).BeginInit();
             this.tabPage3.SuspendLayout();
@@ -91,6 +98,8 @@
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewShortTerm)).BeginInit();
             this.tabPage5.SuspendLayout();
+            this.contextMenuStripLongTerm.SuspendLayout();
+            this.contextMenuStripTactical.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NetAssetdataset)).BeginInit();
             this.SuspendLayout();
             // 
@@ -117,14 +126,14 @@
             this.toolStripDropDownButtonLoad.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButtonLoad.Image")));
             this.toolStripDropDownButtonLoad.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButtonLoad.Name = "toolStripDropDownButtonLoad";
-            this.toolStripDropDownButtonLoad.Size = new System.Drawing.Size(50, 22);
+            this.toolStripDropDownButtonLoad.Size = new System.Drawing.Size(46, 22);
             this.toolStripDropDownButtonLoad.Text = "Load";
             this.toolStripDropDownButtonLoad.Click += new System.EventHandler(this.toolStripDropDownButtonLoad_Click);
             // 
             // allToolStripMenuItem
             // 
             this.allToolStripMenuItem.Name = "allToolStripMenuItem";
-            this.allToolStripMenuItem.Size = new System.Drawing.Size(90, 22);
+            this.allToolStripMenuItem.Size = new System.Drawing.Size(88, 22);
             this.allToolStripMenuItem.Text = "All";
             this.allToolStripMenuItem.Click += new System.EventHandler(this.allToolStripMenuItem_Click);
             // 
@@ -134,7 +143,7 @@
             this.toolStripSave.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSave.Image")));
             this.toolStripSave.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripSave.Name = "toolStripSave";
-            this.toolStripSave.Size = new System.Drawing.Size(39, 22);
+            this.toolStripSave.Size = new System.Drawing.Size(35, 22);
             this.toolStripSave.Text = "Save";
             this.toolStripSave.Click += new System.EventHandler(this.toolStripSave_Click);
             // 
@@ -149,7 +158,7 @@
             this.toolStripSaveAll.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSaveAll.Image")));
             this.toolStripSaveAll.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripSaveAll.Name = "toolStripSaveAll";
-            this.toolStripSaveAll.Size = new System.Drawing.Size(53, 22);
+            this.toolStripSaveAll.Size = new System.Drawing.Size(49, 22);
             this.toolStripSaveAll.Text = "SaveAll";
             this.toolStripSaveAll.Click += new System.EventHandler(this.toolStripSaveAll_Click);
             // 
@@ -167,24 +176,25 @@
             this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
             this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
-            this.toolStripDropDownButton1.Size = new System.Drawing.Size(65, 22);
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(61, 22);
             this.toolStripDropDownButton1.Text = "Statistic";
             // 
             // currentStatusToolStripMenuItem
             // 
             this.currentStatusToolStripMenuItem.Name = "currentStatusToolStripMenuItem";
-            this.currentStatusToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.currentStatusToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.currentStatusToolStripMenuItem.Text = "CurrentStatus";
+            this.currentStatusToolStripMenuItem.Click += new System.EventHandler(this.currentStatusToolStripMenuItem_Click);
             // 
             // historyNetValueToolStripMenuItem
             // 
             this.historyNetValueToolStripMenuItem.Name = "historyNetValueToolStripMenuItem";
-            this.historyNetValueToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.historyNetValueToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.historyNetValueToolStripMenuItem.Text = "HistoryNetValue";
+            this.historyNetValueToolStripMenuItem.Click += new System.EventHandler(this.historyNetValueToolStripMenuItem_Click);
             // 
             // tabControl1
             // 
-            this.tabControl1.ContextMenuStrip = this.contextMenuStripTabPage;
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
@@ -196,20 +206,20 @@
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(950, 383);
+            this.tabControl1.Size = new System.Drawing.Size(950, 417);
             this.tabControl1.TabIndex = 1;
             // 
-            // contextMenuStripTabPage
+            // contextMenuStripDealRecord
             // 
-            this.contextMenuStripTabPage.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.contextMenuStripDealRecord.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.DeleteDealRecordToolStripMenuItem});
-            this.contextMenuStripTabPage.Name = "contextMenuStripTabPage";
-            this.contextMenuStripTabPage.Size = new System.Drawing.Size(114, 26);
+            this.contextMenuStripDealRecord.Name = "contextMenuStripTabPage";
+            this.contextMenuStripDealRecord.Size = new System.Drawing.Size(108, 26);
             // 
             // DeleteDealRecordToolStripMenuItem
             // 
             this.DeleteDealRecordToolStripMenuItem.Name = "DeleteDealRecordToolStripMenuItem";
-            this.DeleteDealRecordToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.DeleteDealRecordToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.DeleteDealRecordToolStripMenuItem.Text = "Delete";
             this.DeleteDealRecordToolStripMenuItem.Click += new System.EventHandler(this.DeleteDealRecordToolStripMenuItem_Click);
             // 
@@ -220,7 +230,7 @@
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.tabPage1.Size = new System.Drawing.Size(942, 357);
+            this.tabPage1.Size = new System.Drawing.Size(942, 391);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "ObservedPool";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -237,7 +247,7 @@
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewObserved.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewObserved.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewObserved.ContextMenuStrip = this.contextMenuStripDataGrid;
+            this.dataGridViewObserved.ContextMenuStrip = this.contextMenuStripLongTerm;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -258,28 +268,28 @@
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewObserved.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.dataGridViewObserved.Size = new System.Drawing.Size(936, 351);
+            this.dataGridViewObserved.Size = new System.Drawing.Size(936, 385);
             this.dataGridViewObserved.TabIndex = 0;
             // 
-            // contextMenuStripDataGrid
+            // contextMenuStripShortTerm
             // 
-            this.contextMenuStripDataGrid.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.contextMenuStripShortTerm.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.g,
             this.sellToolStripMenuItem});
-            this.contextMenuStripDataGrid.Name = "contextMenuStripListview";
-            this.contextMenuStripDataGrid.Size = new System.Drawing.Size(153, 70);
+            this.contextMenuStripShortTerm.Name = "contextMenuStripListview";
+            this.contextMenuStripShortTerm.Size = new System.Drawing.Size(95, 48);
             // 
             // g
             // 
             this.g.Name = "g";
-            this.g.Size = new System.Drawing.Size(152, 22);
+            this.g.Size = new System.Drawing.Size(94, 22);
             this.g.Text = "Buy";
             this.g.Click += new System.EventHandler(this.BuyToolStripMenuItem_Click);
             // 
             // sellToolStripMenuItem
             // 
             this.sellToolStripMenuItem.Name = "sellToolStripMenuItem";
-            this.sellToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.sellToolStripMenuItem.Size = new System.Drawing.Size(94, 22);
             this.sellToolStripMenuItem.Text = "Sell";
             this.sellToolStripMenuItem.Click += new System.EventHandler(this.sellToolStripMenuItem_Click);
             // 
@@ -289,7 +299,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(942, 357);
+            this.tabPage2.Size = new System.Drawing.Size(942, 391);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "LongTermPool";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -306,7 +316,7 @@
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewLongTerm.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridViewLongTerm.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewLongTerm.ContextMenuStrip = this.contextMenuStripDataGrid;
+            this.dataGridViewLongTerm.ContextMenuStrip = this.contextMenuStripLongTerm;
             dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -328,9 +338,8 @@
             dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewLongTerm.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridViewLongTerm.ShowCellErrors = false;
-            this.dataGridViewLongTerm.Size = new System.Drawing.Size(936, 351);
+            this.dataGridViewLongTerm.Size = new System.Drawing.Size(936, 385);
             this.dataGridViewLongTerm.TabIndex = 0;
-            //this.dataGridViewLongTerm.Sorted += new System.EventHandler(this.dataGridViewLongTerm_Sorted);
             // 
             // tabPage3
             // 
@@ -338,7 +347,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(942, 357);
+            this.tabPage3.Size = new System.Drawing.Size(942, 391);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "TacticalPool";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -355,7 +364,7 @@
             dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewTactical.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dataGridViewTactical.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewTactical.ContextMenuStrip = this.contextMenuStripDataGrid;
+            this.dataGridViewTactical.ContextMenuStrip = this.contextMenuStripTactical;
             dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -376,9 +385,8 @@
             dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewTactical.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
-            this.dataGridViewTactical.Size = new System.Drawing.Size(936, 351);
+            this.dataGridViewTactical.Size = new System.Drawing.Size(936, 385);
             this.dataGridViewTactical.TabIndex = 0;
-            //this.dataGridViewTactical.Sorted += new System.EventHandler(this.dataGridViewMidTerm_Sorted);
             // 
             // tabPage4
             // 
@@ -386,7 +394,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(942, 357);
+            this.tabPage4.Size = new System.Drawing.Size(942, 391);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "ShortTermPool";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -403,7 +411,7 @@
             dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewShortTerm.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
             this.dataGridViewShortTerm.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewShortTerm.ContextMenuStrip = this.contextMenuStripDataGrid;
+            this.dataGridViewShortTerm.ContextMenuStrip = this.contextMenuStripShortTerm;
             dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -424,16 +432,15 @@
             dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewShortTerm.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
-            this.dataGridViewShortTerm.Size = new System.Drawing.Size(936, 351);
+            this.dataGridViewShortTerm.Size = new System.Drawing.Size(936, 385);
             this.dataGridViewShortTerm.TabIndex = 0;
-            //this.dataGridViewShortTerm.Sorted += new System.EventHandler(this.dataGridViewShortTerm_Sorted);
             // 
             // tabPage5
             // 
             this.tabPage5.Controls.Add(this.listView1);
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(942, 357);
+            this.tabPage5.Size = new System.Drawing.Size(942, 391);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "DealRecordPool";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -447,14 +454,14 @@
             this.columnPrice,
             this.columnCount,
             this.columnPool,
-            this.columnProfit,
-            this.columnReason});
+            this.columnProfit});
+            this.listView1.ContextMenuStrip = this.contextMenuStripDealRecord;
             this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView1.FullRowSelect = true;
             this.listView1.GridLines = true;
             this.listView1.Location = new System.Drawing.Point(0, 0);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(942, 357);
+            this.listView1.Size = new System.Drawing.Size(942, 391);
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -463,47 +470,102 @@
             // columnDate
             // 
             this.columnDate.Text = "Date";
-            this.columnDate.Width = 102;
+            this.columnDate.Width = 111;
             // 
             // columnName
             // 
             this.columnName.Text = "Name";
-            this.columnName.Width = 104;
+            this.columnName.Width = 129;
             // 
             // columnType
             // 
             this.columnType.Text = "Type";
-            this.columnType.Width = 92;
+            this.columnType.Width = 136;
             // 
             // columnPrice
             // 
             this.columnPrice.Text = "Price";
-            this.columnPrice.Width = 105;
+            this.columnPrice.Width = 156;
             // 
             // columnCount
             // 
             this.columnCount.Text = "Count";
-            this.columnCount.Width = 110;
+            this.columnCount.Width = 142;
             // 
             // columnPool
             // 
             this.columnPool.Text = "Pool";
-            this.columnPool.Width = 124;
+            this.columnPool.Width = 133;
             // 
             // columnProfit
             // 
             this.columnProfit.Text = "Profit";
-            this.columnProfit.Width = 128;
-            // 
-            // columnReason
-            // 
-            this.columnReason.Text = "Reason";
-            this.columnReason.Width = 612;
+            this.columnProfit.Width = 192;
             // 
             // openFileDialog1
             // 
             this.openFileDialog1.DefaultExt = "xml";
             this.openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // contextMenuStripLongTerm
+            // 
+            this.contextMenuStripLongTerm.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openPosittionToolStripMenuItem,
+            this.closePositionToolStripMenuItem,
+            this.underPositionToolStripMenuItem,
+            this.overweightToolStripMenuItem1});
+            this.contextMenuStripLongTerm.Name = "contextMenuStripLongTerm";
+            this.contextMenuStripLongTerm.Size = new System.Drawing.Size(150, 92);
+            // 
+            // openPosittionToolStripMenuItem
+            // 
+            this.openPosittionToolStripMenuItem.Name = "openPosittionToolStripMenuItem";
+            this.openPosittionToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.openPosittionToolStripMenuItem.Text = " OpenPosition";
+            this.openPosittionToolStripMenuItem.Click += new System.EventHandler(this.openPosittionToolStripMenuItem_Click);
+            // 
+            // closePositionToolStripMenuItem
+            // 
+            this.closePositionToolStripMenuItem.Name = "closePositionToolStripMenuItem";
+            this.closePositionToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.closePositionToolStripMenuItem.Text = " ClosePosition";
+            this.closePositionToolStripMenuItem.Click += new System.EventHandler(this.closePositionToolStripMenuItem_Click);
+            // 
+            // contextMenuStripTactical
+            // 
+            this.contextMenuStripTactical.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.overweightToolStripMenuItem,
+            this.underwweightToolStripMenuItem});
+            this.contextMenuStripTactical.Name = "contextMenuStripTactical";
+            this.contextMenuStripTactical.Size = new System.Drawing.Size(152, 48);
+            // 
+            // overweightToolStripMenuItem
+            // 
+            this.overweightToolStripMenuItem.Name = "overweightToolStripMenuItem";
+            this.overweightToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.overweightToolStripMenuItem.Text = "Overweight";
+            this.overweightToolStripMenuItem.Click += new System.EventHandler(this.overweightToolStripMenuItem_Click);
+            // 
+            // underwweightToolStripMenuItem
+            // 
+            this.underwweightToolStripMenuItem.Name = "underwweightToolStripMenuItem";
+            this.underwweightToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.underwweightToolStripMenuItem.Text = "Underwweight";
+            this.underwweightToolStripMenuItem.Click += new System.EventHandler(this.underwweightToolStripMenuItem_Click);
+            // 
+            // underPositionToolStripMenuItem
+            // 
+            this.underPositionToolStripMenuItem.Name = "underPositionToolStripMenuItem";
+            this.underPositionToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.underPositionToolStripMenuItem.Text = "UnderPosition";
+            this.underPositionToolStripMenuItem.Click += new System.EventHandler(this.underPositionToolStripMenuItem_Click);
+            // 
+            // overweightToolStripMenuItem1
+            // 
+            this.overweightToolStripMenuItem1.Name = "overweightToolStripMenuItem1";
+            this.overweightToolStripMenuItem1.Size = new System.Drawing.Size(149, 22);
+            this.overweightToolStripMenuItem1.Text = "Overweight";
+            this.overweightToolStripMenuItem1.Click += new System.EventHandler(this.overweightToolStripMenuItem1_Click);
             // 
             // NetAssetdataset
             // 
@@ -512,9 +574,9 @@
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(950, 408);
+            this.ClientSize = new System.Drawing.Size(950, 442);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.toolStrip1);
             this.Name = "Form1";
@@ -522,10 +584,10 @@
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
-            this.contextMenuStripTabPage.ResumeLayout(false);
+            this.contextMenuStripDealRecord.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewObserved)).EndInit();
-            this.contextMenuStripDataGrid.ResumeLayout(false);
+            this.contextMenuStripShortTerm.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLongTerm)).EndInit();
             this.tabPage3.ResumeLayout(false);
@@ -533,6 +595,8 @@
             this.tabPage4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewShortTerm)).EndInit();
             this.tabPage5.ResumeLayout(false);
+            this.contextMenuStripLongTerm.ResumeLayout(false);
+            this.contextMenuStripTactical.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.NetAssetdataset)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -549,9 +613,9 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStripDataGrid;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripShortTerm;
         private System.Windows.Forms.ToolStripMenuItem g;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStripTabPage;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripDealRecord;
         private System.Windows.Forms.ToolStripMenuItem DeleteDealRecordToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.TabPage tabPage3;
@@ -565,7 +629,6 @@
         private System.Windows.Forms.ColumnHeader columnType;
         private System.Windows.Forms.ColumnHeader columnPrice;
         private System.Windows.Forms.ColumnHeader columnCount;
-        private System.Windows.Forms.ColumnHeader columnReason;
         private System.Windows.Forms.DataGridView dataGridViewLongTerm;
         private System.Windows.Forms.DataGridView dataGridViewTactical;
         private System.Windows.Forms.DataGridView dataGridViewShortTerm;
@@ -577,6 +640,14 @@
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
         private System.Windows.Forms.ToolStripMenuItem currentStatusToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem historyNetValueToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripLongTerm;
+        private System.Windows.Forms.ToolStripMenuItem openPosittionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem closePositionToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripTactical;
+        private System.Windows.Forms.ToolStripMenuItem overweightToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem underwweightToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem underPositionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem overweightToolStripMenuItem1;
     }
 }
 

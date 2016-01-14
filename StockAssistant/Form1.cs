@@ -23,19 +23,43 @@ namespace StockAssistant
     {
         public class StatisticData
         {
-            public StatisticData() { }
-            public decimal LongTermAsset;
+            public StatisticData() 
+            {
+                CostCash = 500000;
+                LongTermLeftCash = LongTermAvailableCash = 450000;
+                ShortTermLeftCash = 50000;
+                curNetCount = 500000;
+            }
+            /*
+             * please note that the profit which is saved in xml file only include the selled stock's profit.
+             * but the total profit include not only each pool profit, but also real-time profit of each hold stock
+             * */
+            public decimal LongTermValue;
             public decimal LongTermProfit;
-            public decimal TacticalAsset;
+            public decimal LongTermLeftCash; //real cash
+            public decimal LongTermAvailableCash; //available cash for new long term stock
+            public decimal TacticalValue;
             public decimal TacticalProfit;
-            public decimal ShortTermAsset;
+            public decimal ShortTermValue;
             public decimal ShortTermProfit;
-            public decimal LeftCash;
-            public decimal CostCash;
-            public decimal TotalAsset;
-            public decimal TotalProfit;
-            public UInt32 curNetCount;
-            public decimal curNetValue;
+            public decimal ShortTermLeftCash;
+            public decimal LeftTotalCash; //LongTermLeftCash + ShortTermLeftCash            
+            public decimal TotalAsset; //LongTerm value + Tactical value + ShortTerm value + left total Cash
+            public decimal TotalProfit; // LongTerm profit + Tactical profit + ShortTerm profit + real-time profit
+            public decimal CostCash; //original cash
+            public UInt32 curNetCount; //Original, 1 yuan equal 1 share
+            public decimal curNetValue; //Total Asset / curNetCount
+        }
+
+        public class DealRecordData
+        {
+            public DealRecordData() { }
+            public string Name;
+            public string Type;
+            public string Price;
+            public string Count;
+            public string Profit;
+            public string Pool;
         }
 
         private StatisticData m_statData;
@@ -227,143 +251,83 @@ namespace StockAssistant
         {
             DealDlg dlg = new DealDlg();
 
-            if (this.tabControl1.SelectedIndex == 0)
-            {//ObservedPool
-                if (dataGridViewObserved.SelectedRows.Count != 1)
-                    return;
-                else
+            if (this.tabControl1.SelectedIndex == 3)
+            {//ShortTermPool
+                if (dataGridViewShortTerm.SelectedRows.Count == 1)
                 {
-                    dlg.textBoxName.Text = dataGridViewObserved.SelectedRows[0].Cells["Name"].Value.ToString();
-                    dlg.textBoxType.Text = "Buy";
-                    dlg.textBoxNote.Text = dataGridViewObserved.SelectedRows[0].Cells["Note"].Value.ToString();
-                    dlg.comboBoxAlgorithm.Text = "FiveDayCost";
-                    if (dlg.ShowDialog() == DialogResult.OK)
-                    {
-                        //insert record into dealrecordpool
-                        InsertDealRecord(dlg);
-                        //delete this item from observedpool
-                        DeleteFromStockPool(dataGridViewObserved, dataGridViewObserved.SelectedRows[0].Index);
+                    dlg.textBoxName.Text = dataGridViewShortTerm.SelectedRows[0].Cells["Name"].Value.ToString();
+                    dlg.textBoxNumber.Text = dataGridViewShortTerm.SelectedRows[0].Cells["Code"].Value.ToString();
+                }
+                dlg.textBoxType.Text = "Buy";                   
                         
-                        //insert item into specific stockpool
-                        if (dlg.comboBoxPool.Text == "LongTerm")
-                        {
-                            InsertStockPool(dlg, dataGridViewLongTerm);
-                        }
-                        else if (dlg.comboBoxPool.Text == "MidTerm")
-                        {
-                            InsertStockPool(dlg, dataGridViewTactical);
-                        }
-                        else
-                        {
-                            InsertStockPool(dlg, dataGridViewShortTerm);
-                        }
-                    }
-                }
-            }
-            else if (this.tabControl1.SelectedIndex == 1)
-            {
-                ProcessDealBuyForHoldPool(dlg, dataGridViewLongTerm);
-            }
-            else if (this.tabControl1.SelectedIndex == 2)
-            {
-                ProcessDealBuyForHoldPool(dlg, dataGridViewTactical);
-            }
-            else if (this.tabControl1.SelectedIndex == 3)
-            {
-                ProcessDealBuyForHoldPool(dlg, dataGridViewShortTerm);
-            }
-            else
-                return;
-        }
-
-        private void ProcessDealBuyForHoldPool(DealDlg dlg, DataGridView gridview)
-        {
-            //LongTerm/MidTerm/ShortTerm stock pool
-            if (gridview.SelectedRows.Count != 1)
-            {
-                if (gridview.SelectedRows.Count == 0)
-                {
-                    dlg.textBoxType.Text = "Buy";
-                    if (dlg.ShowDialog() == DialogResult.OK)
-                    {
-                        InsertStockPool(dlg, gridview);
-                        InsertDealRecord(dlg);
-                    }
-                }
-            }               
-            else
-            {
-                dlg.textBoxName.Text = gridview.SelectedRows[0].Cells["Name"].Value.ToString();
-                dlg.textBoxNumber.Text = gridview.SelectedRows[0].Cells["Number"].Value.ToString();
-                dlg.textBoxType.Text = "Buy";
-                //dlg.textBoxNote.Text = gridview.SelectedRows[0].Cells["Note"].Value.ToString();
-                // dlg.comboBoxAlgorithm.Text = "FiveDayCost";
-                if (dlg.ShowDialog() == DialogResult.OK)
-                {                   
-                    //increase new item in datagridview
-                    InsertStockPool(dlg, gridview);
-                    //insert record into dealrecordpool
-                    InsertDealRecord(dlg);
-                }
-            }
-        }
-
-        private void ProcessDealSellForHoldPool(DealDlg dlg, DataGridView gridview)
-        {
-            //LongTerm/MidTerm/ShortTerm stock pool
-            if (gridview.SelectedRows.Count != 1)
-                return;
-            else
-            {
-                dlg.textBoxName.Text = gridview.SelectedRows[0].Cells["Name"].Value.ToString();
-                dlg.textBoxNumber.Text = gridview.SelectedRows[0].Cells["Number"].Value.ToString();
-                dlg.textBoxType.Text = "Sell";
-                //dlg.textBoxNote.Text = gridview.SelectedRows[0].Cells["Note"].Value.ToString();
-                // dlg.comboBoxAlgorithm.Text = "FiveDayCost";
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
-                    //decrese count from specific stockpool, if left count is 0, then delete item
-                    decimal oriPrice = Convert.ToDecimal(gridview.SelectedRows[0].Cells["OriginPrice"].Value.ToString());
-                    decimal sellPrice = Convert.ToDecimal(dlg.textBoxPrice.Text);
-                    dlg.sellprofit = (sellPrice - oriPrice) / oriPrice;
+                    InsertShortTermPool(dlg, dataGridViewShortTerm);
+                    DealRecordData data = new DealRecordData();
+                    data.Name = dlg.textBoxName.Text;
+                    data.Type = dlg.textBoxType.Text;
+                    data.Price = dlg.textBoxPrice.Text;
+                    data.Count = dlg.textBoxCount.Text;
+                    data.Pool = "ShortTermPool";
+                    data.Profit = dlg.sellprofit.ToString();
+                    InsertDealRecord(data);
+
+                    //update Stastistic data
+                    decimal price = Convert.ToDecimal(dlg.textBoxPrice.Text);
                     int count = Convert.ToInt32(dlg.textBoxCount.Text);
-                    int current = Convert.ToInt32(gridview.SelectedRows[0].Cells["Count"].Value.ToString());
-                    int left = current - count;
-                    if (left < 0)
-                    {
-                        MessageBox.Show("Count is more than the holding number.");
-                        return;
-                    }
-                    else if (left == 0)
-                    {
-                        //delete item from gridview
-                        //DataRowView view = gridview.SelectedRows[0].DataBoundItem as DataRowView;
-                        //int index = view.Row.
-                        DeleteFromStockPool(gridview, gridview.SelectedRows[0].Index);
-                    }
-                    else
-                    {
-                        gridview.SelectedRows[0].Cells["Count"].Value = left;
-                    }
-                    //insert record into dealrecordpool
-                    InsertDealRecord(dlg);
-                }
-            }
-        }
+                    decimal cash = price * count;
+                    m_statData.ShortTermLeftCash -= cash; 
+                }                   
+            }           
+            else
+                return;
+        } 
 
-        private void InsertStockPool(DealDlg dlg, DataGridView gridview)
+        private void InsertShortTermPool(DealDlg dlg, DataGridView gridview)
         {
-            StockPool.ObservedStockDataTable dt = (StockPool.ObservedStockDataTable)gridview.DataSource;
-            
-            StockPool.ObservedStockRow row = dt.NewObservedStockRow();           
+            StockPool.ShortTermTableDataTable dt = (StockPool.ShortTermTableDataTable)gridview.DataSource;
+
+            StockPool.ShortTermTableRow row = dt.NewShortTermTableRow();           
             row.Name = dlg.textBoxName.Text;
-            row.Number = dlg.textBoxNumber.Text;
-            row.OriginPrice = Convert.ToDecimal(dlg.textBoxPrice.Text);
-            row.Count = Convert.ToUInt32(dlg.textBoxCount.Text);
-            row.Note = dlg.textBoxNote.Text;
-            row.Algorithm = dlg.comboBoxAlgorithm.Text;
+            row.Code = dlg.textBoxNumber.Text;
+            row.CostPrice = Convert.ToDecimal(dlg.textBoxPrice.Text);
+            row.Amount = Convert.ToUInt32(dlg.textBoxCount.Text);            
 
             dt.Rows.Add(row);
+        }
+
+        private void InsertLongTermPool(PositionDlg dlg)
+        {
+            StockPool.LongTermTableDataTable dt = (StockPool.LongTermTableDataTable)dataGridViewLongTerm.DataSource;
+            
+            StockPool.LongTermTableRow row = dt.NewLongTermTableRow();
+            row.Name = dlg.textBoxName.Text;
+            row.Code = dlg.textBoxNumber.Text;
+            row.CostPrice = Convert.ToDecimal(dlg.textBoxPrice.Text);
+            row.Amount = Convert.ToUInt32(dlg.textBoxCount.Text);
+            row.ClassType = dlg.comboBoxClassType.SelectedText;
+            if (dlg.comboBoxClassType.SelectedText == "High potential")
+                row.AvailableCash = row.CostPrice * row.Amount / 2; //for high potential stock, long term position is 50%
+            else
+                row.AvailableCash = row.CostPrice * row.Amount / 3; //for blue chip stock, long term position is 60%
+           
+            dt.Rows.Add(row);
+        }
+
+        private void InsertTacticalPool(DealDlg dlg, int index)
+        {
+            StockPool.TacticalTableDataTable dt = (StockPool.TacticalTableDataTable)dataGridViewTactical.DataSource;
+
+            StockPool.TacticalTableRow row = dt.NewTacticalTableRow();
+            row.Name = dlg.textBoxName.Text;
+            row.Code = dlg.textBoxNumber.Text;
+            row.CostPrice = Convert.ToDecimal(dlg.textBoxPrice.Text);
+            row.DealCount = Convert.ToUInt32(dlg.textBoxCount.Text);
+
+            if (index != -1)
+                dt.Rows.InsertAt(row, index);
+            else
+                dt.Rows.Add(row);            
         }
 
         private void DeleteFromStockPool(DataGridView gridview, int index)
@@ -372,34 +336,17 @@ namespace StockAssistant
             dt.Rows.RemoveAt(index);
         }
 
-        private void InsertDealRecord(DealDlg dlg)
+        private void InsertDealRecord(DealRecordData data)
         {
             ListViewItem item = new ListViewItem(DateTime.Now.ToString("yyyy-MM-dd"));
-            item.SubItems.Add(dlg.textBoxName.Text);
-            item.SubItems.Add(dlg.textBoxType.Text);
-            item.SubItems.Add(dlg.textBoxPrice.Text);
-            item.SubItems.Add(dlg.textBoxCount.Text);
-            item.SubItems.Add(dlg.comboBoxPool.Text);
-            item.SubItems.Add(dlg.sellprofit.ToString());
-            item.SubItems.Add(dlg.textBoxReason.Text);
-
-            listView1.Items.Add(item);
-
-            //update cash textbox
-            decimal price = Convert.ToDecimal(dlg.textBoxPrice.Text);
-            int count = Convert.ToInt32(dlg.textBoxCount.Text);
-            decimal cash = price*count;
-            decimal oldCash = Convert.ToDecimal(this.textBoxCash.Text);
-            decimal newCash;
-            if (dlg.textBoxType.Text == "Buy")
-            {
-                newCash = oldCash - cash;
-            }
-            else
-            {
-                newCash = oldCash + cash;
-            }
-            this.textBoxCash.Text = newCash.ToString();
+            item.SubItems.Add(data.Name);
+            item.SubItems.Add(data.Type);
+            item.SubItems.Add(data.Price);
+            item.SubItems.Add(data.Count);
+            item.SubItems.Add(data.Pool);
+            item.SubItems.Add(data.Profit);
+            
+            listView1.Items.Add(item);           
         }
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
@@ -437,82 +384,104 @@ namespace StockAssistant
             this.tabControl1.SelectedIndex = 0;
         }
 
-        private void BtnAsset_Click(object sender, EventArgs e)
-        {
-            decimal asset = 0;
-            asset += CalculateAsset(dataGridViewLongTerm);
-            asset += CalculateAsset(dataGridViewTactical);
-            asset += CalculateAsset(dataGridViewShortTerm);
-            decimal cash = Convert.ToDecimal(this.textBoxCash.Text);
-            asset += cash;
-
-            this.textBox1.Text = asset.ToString();
-
-            //add record if this is of new day
-            AssetDS.NetValueDTDataTable dt = NetAssetdataset.NetValueDT;
-            AssetDS.NetValueDTRow row = dt.NewNetValueDTRow();
-            row.Date = DateTime.Now.ToString("yyyy-MM-dd");
-            row.NetAsset = asset;
-            row.NetCount = 700000;
-
-            DataRow findrow = dt.Rows.Find(row.Date);
-            if (findrow == null)
-                dt.Rows.Add(row);
-
-        }
-
-        private decimal CalculateAsset(DataGridView gridview)
-        {
-            decimal asset = 0;
-            StockPool.ObservedStockDataTable dt = (StockPool.ObservedStockDataTable)gridview.DataSource;
-
-            foreach (StockPool.ObservedStockRow row in dt.Rows)
-            {
-                asset += row.CurrentPrice * row.Count;
-            }
-
-            return asset;
-        }
-
         private void sellToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DealDlg dlg = new DealDlg();
 
-            if (this.tabControl1.SelectedIndex == 0)
-            {//ObservedPool
-                return;
-            }
-            else if (this.tabControl1.SelectedIndex == 1)
-            {
-                ProcessDealSellForHoldPool(dlg, dataGridViewLongTerm);
-            }
-            else if (this.tabControl1.SelectedIndex == 2)
-            {
-                ProcessDealSellForHoldPool(dlg, dataGridViewTactical);
-            }
-            else if (this.tabControl1.SelectedIndex == 3)
-            {
-                ProcessDealSellForHoldPool(dlg, dataGridViewShortTerm);
-            }
+            if (this.tabControl1.SelectedIndex == 3)
+            {//ShortTermPool
+                if (dataGridViewShortTerm.SelectedRows.Count != 1)
+                    return;
+
+                dlg.textBoxName.Text = dataGridViewShortTerm.SelectedRows[0].Cells["Name"].Value.ToString();
+                dlg.textBoxNumber.Text = dataGridViewShortTerm.SelectedRows[0].Cells["Code"].Value.ToString();
+                dlg.textBoxType.Text = "Sell";
+
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    //decrese count from specific stockpool, if left count is 0, then delete item
+                    decimal oriPrice = Convert.ToDecimal(dataGridViewShortTerm.SelectedRows[0].Cells["CostPrice"].Value.ToString());
+                    decimal sellPrice = Convert.ToDecimal(dlg.textBoxPrice.Text);
+                    dlg.sellprofit = (sellPrice - oriPrice) / oriPrice;
+                    int count = Convert.ToInt32(dlg.textBoxCount.Text);
+                    int current = Convert.ToInt32(dataGridViewShortTerm.SelectedRows[0].Cells["Amount"].Value.ToString());
+                    int left = current - count;
+                    if (left < 0)
+                    {
+                        MessageBox.Show("Count is more than the holding number.");
+                        return;
+                    }
+                    else if (left == 0)
+                    {
+                        //delete item from gridview
+                        //DataRowView view = gridview.SelectedRows[0].DataBoundItem as DataRowView;
+                        //int index = view.Row.
+                        DeleteFromStockPool(dataGridViewShortTerm, dataGridViewShortTerm.SelectedRows[0].Index);
+                    }
+                    else
+                    {
+                        dataGridViewShortTerm.SelectedRows[0].Cells["Amount"].Value = left;
+                    }
+
+                    //insert DealRecord
+                    DealRecordData data = new DealRecordData();
+                    data.Name = dlg.textBoxName.Text;
+                    data.Type = dlg.textBoxType.Text;
+                    data.Price = dlg.textBoxPrice.Text;
+                    data.Count = dlg.textBoxCount.Text;
+                    data.Pool = "ShortTermPool";
+                    data.Profit = dlg.sellprofit.ToString();
+                    InsertDealRecord(data);
+
+                    //update Stastistic data      
+                    m_statData.ShortTermProfit += dlg.sellprofit;
+                    decimal cash = sellPrice * count;
+                    m_statData.ShortTermLeftCash += cash;
+                }                   
+            }           
             else
                 return;
-        }
+        }       
 
-        private void toolStripCalculate_Click(object sender, EventArgs e)
+        private void RefreshObservedPool()
         {
-            RefreshPrice(dataGridViewObserved);
-            RefreshPrice(dataGridViewLongTerm);
-            RefreshPrice(dataGridViewTactical);
-            RefreshPrice(dataGridViewShortTerm);
+            StockPool.ObservedTableDataTable dt = (StockPool.ObservedTableDataTable)dataGridViewObserved.DataSource;
+            foreach(StockPool.ObservedTableRow row in dt.Rows)
+            {    
+                string stocknumber = row.Code;
+                decimal price = WebUtil.GetCurrentPrice(stocknumber);
+                if (price != 0)
+                    row.CurrentPrice = price;
+            }            
         }
-
-        private void RefreshPrice(DataGridView gridview)
+        private void RefreshTacticalPool()
         {
-            StockPool.ObservedStockDataTable dt = (StockPool.ObservedStockDataTable)gridview.DataSource;
-
-            foreach (StockPool.ObservedStockRow row in dt.Rows)
+            StockPool.TacticalTableDataTable dt = (StockPool.TacticalTableDataTable)dataGridViewObserved.DataSource;
+            foreach (StockPool.TacticalTableRow row in dt.Rows)
             {
-                string stocknumber = row.Number;
+                string stocknumber = row.Code;
+                decimal price = WebUtil.GetCurrentPrice(stocknumber);
+                if (price != 0)
+                    row.CurrentPrice = price;
+            }
+        }
+        private void RefreshLongTermPool()
+        {
+            StockPool.LongTermTableDataTable dt = (StockPool.LongTermTableDataTable)dataGridViewObserved.DataSource;
+            foreach (StockPool.LongTermTableRow row in dt.Rows)
+            {
+                string stocknumber = row.Code;
+                decimal price = WebUtil.GetCurrentPrice(stocknumber);
+                if (price != 0)
+                    row.CurrentPrice = price;
+            }
+        }
+        private void RefreshShortTermPool()
+        {
+            StockPool.ShortTermTableDataTable dt = (StockPool.ShortTermTableDataTable)dataGridViewObserved.DataSource;
+            foreach (StockPool.ShortTermTableRow row in dt.Rows)
+            {
+                string stocknumber = row.Code;
                 decimal price = WebUtil.GetCurrentPrice(stocknumber);
                 if (price != 0)
                     row.CurrentPrice = price;
@@ -526,16 +495,6 @@ namespace StockAssistant
                 this.listView1.Items.RemoveAt(item.Index);
             }
             
-        }
-
-        private void toolStripNetValue_Click(object sender, EventArgs e)
-        {
-            NetValue chartform = new NetValue();
-            chartform.chart1.DataSource = NetAssetdataset.NetValueDT;
-            chartform.chart1.Series[0].XValueMember = "Date";
-            chartform.chart1.Series[0].YValueMembers = "NetValue";
-            chartform.chart1.DataBind();
-            chartform.Show();
         }
 
         private DataGridView GetCurrentGridView()
@@ -555,6 +514,311 @@ namespace StockAssistant
             }
         }
 
+        //For ObservedPool and LongTerm pool
+        private void openPosittionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PositionDlg dlg = new PositionDlg();
+
+            switch (this.tabControl1.SelectedIndex)
+            {
+                case 0:
+                    {
+                        if (dataGridViewObserved.SelectedRows.Count != 1)
+                            return;
+
+                        dlg.textBoxName.Text = dataGridViewObserved.SelectedRows[0].Cells["Name"].Value.ToString();
+                        dlg.textBoxNumber.Text = dataGridViewObserved.SelectedRows[0].Cells["Code"].Value.ToString();
+                        dlg.textBoxType.Text = "OpenPosition";
+                        if (dlg.ShowDialog() == DialogResult.OK)
+                        {
+                            InsertLongTermPool(dlg);
+                            //InsertTacticalPool(dlg);
+                            DealRecordData data = new DealRecordData();
+                            data.Name = dlg.textBoxName.Text;
+                            data.Type = dlg.textBoxType.Text;
+                            data.Price = dlg.textBoxPrice.Text;
+                            data.Count = dlg.textBoxCount.Text;
+                            data.Pool = "LongTermPool";
+                            data.Profit = dlg.sellprofit.ToString();
+                            InsertDealRecord(data);
+                            DeleteFromStockPool(dataGridViewObserved, dataGridViewObserved.SelectedRows[0].Index);
+                            //update statistic data
+                            decimal price = Convert.ToDecimal(dlg.textBoxPrice.Text);
+                            uint count = Convert.ToUInt32(dlg.textBoxCount.Text);
+                            if (dlg.comboBoxClassType.SelectedText == "High potential")
+                                m_statData.LongTermAvailableCash -= price*count*2;
+                            else
+                                m_statData.LongTermAvailableCash -= price*count*5/3;
+                            m_statData.LongTermLeftCash -= price * count;
+                        }
+                    }
+                    break;
+                case 1:
+                    {
+                        if (dataGridViewObserved.SelectedRows.Count != 0)
+                            return;
+                       
+                        dlg.textBoxType.Text = "OpenPosition";
+                        if (dlg.ShowDialog() == DialogResult.OK)
+                        {
+                            InsertLongTermPool(dlg);
+                            //InsertTacticalPool(dlg);
+                            DealRecordData data = new DealRecordData();
+                            data.Name = dlg.textBoxName.Text;
+                            data.Type = dlg.textBoxType.Text;
+                            data.Price = dlg.textBoxPrice.Text;
+                            data.Count = dlg.textBoxCount.Text;
+                            data.Pool = "LongTermPool";
+                            data.Profit = dlg.sellprofit.ToString();
+                            InsertDealRecord(data);
+                            
+                            //update statistic data
+                            decimal price = Convert.ToDecimal(dlg.textBoxPrice.Text);
+                            uint count = Convert.ToUInt32(dlg.textBoxCount.Text);
+                            if (dlg.comboBoxClassType.SelectedText == "High potential")
+                                m_statData.LongTermAvailableCash -= price * count * 2;
+                            else
+                                m_statData.LongTermAvailableCash -= price * count * 5 / 3;
+                            m_statData.LongTermLeftCash -= price * count;
+                        }
+                    }
+                    break;
+                default:
+                    return;
+            }
+        }
+
+        private void closePositionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.tabControl1.SelectedIndex != 1)
+                return;
+
+            PositionDlg dlg = new PositionDlg();
+
+            string name = dataGridViewLongTerm.SelectedRows[0].Cells["Name"].Value.ToString();
+            StockPool.TacticalTableDataTable dt = (StockPool.TacticalTableDataTable)dataGridViewTactical.DataSource;
+            if (dt.Select("Name=" + name).Length != 0)
+            {
+                MessageBox.Show("please underweight stock in tactical pool first");
+                return;
+            }           
+
+            dlg.textBoxName.Text = dataGridViewLongTerm.SelectedRows[0].Cells["Name"].Value.ToString();
+            dlg.textBoxNumber.Text = dataGridViewLongTerm.SelectedRows[0].Cells["Code"].Value.ToString();
+            dlg.textBoxType.Text = "ClosePosition";
+            dlg.textBoxCount.Text = dataGridViewLongTerm.SelectedRows[0].Cells["Amount"].Value.ToString();
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                //update statistic data
+                StockPool.LongTermTableDataTable longtermdt = (StockPool.LongTermTableDataTable)dataGridViewLongTerm.DataSource;
+                StockPool.LongTermTableRow row = (StockPool.LongTermTableRow)longtermdt.Rows[dataGridViewLongTerm.SelectedRows[0].Index];
+                decimal sellprice = Convert.ToDecimal(dlg.textBoxPrice.Text);
+                decimal profit = (sellprice - row.CostPrice) * row.Amount;
+                m_statData.LongTermProfit += profit;
+                m_statData.LongTermLeftCash += sellprice * row.Amount;
+                m_statData.LongTermAvailableCash += sellprice * row.Amount + row.AvailableCash;
+                //insertDealRecord
+                DealRecordData data = new DealRecordData();
+                data.Name = dlg.textBoxName.Text;
+                data.Type = dlg.textBoxType.Text;
+                data.Price = dlg.textBoxPrice.Text;
+                data.Count = dlg.textBoxCount.Text;
+                data.Pool = "LongTermPool";
+                data.Profit = profit.ToString() ;
+                InsertDealRecord(data);
+                //delete longterm record
+                DeleteFromStockPool(dataGridViewLongTerm, dataGridViewLongTerm.SelectedRows[0].Index);
+            }
+            
+        }
+
+        private void overweightToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.tabControl1.SelectedIndex != 2)
+                return;
+
+            DealDlg dlg = new DealDlg();
+            dlg.textBoxName.Text = dataGridViewTactical.SelectedRows[0].Cells["Name"].Value.ToString();
+            dlg.textBoxNumber.Text = dataGridViewTactical.SelectedRows[0].Cells["Code"].Value.ToString();
+            dlg.textBoxType.Text = "OverWeight";
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                //update stock available cash in long term pool
+                decimal price = Convert.ToDecimal(dlg.textBoxPrice.Text);
+                uint count = Convert.ToUInt16(dlg.textBoxCount.Text);
+                StockPool.LongTermTableDataTable dt = (StockPool.LongTermTableDataTable)dataGridViewLongTerm.DataSource;
+                StockPool.LongTermTableRow row = (StockPool.LongTermTableRow)dt.Select("Name=" + dlg.textBoxName.Text)[0];
+                row.AvailableCash -= price * count;
+                m_statData.LongTermLeftCash -= price * count;
+                 
+                //insert tactical record
+                InsertTacticalPool(dlg,dataGridViewTactical.SelectedRows[0].Index+1);
+
+                //insert deal record
+                DealRecordData data = new DealRecordData();
+                data.Name = dlg.textBoxName.Text;
+                data.Type = dlg.textBoxType.Text;
+                data.Price = dlg.textBoxPrice.Text;
+                data.Count = dlg.textBoxCount.Text;
+                data.Pool = "TacticalPool";
+                data.Profit = dlg.sellprofit.ToString();
+                InsertDealRecord(data);
+            }
+        }
+
+        private void underwweightToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.tabControl1.SelectedIndex != 2)
+                return;
+
+            DealDlg dlg = new DealDlg();
+            dlg.textBoxName.Text = dataGridViewTactical.SelectedRows[0].Cells["Name"].Value.ToString();
+            dlg.textBoxNumber.Text = dataGridViewTactical.SelectedRows[0].Cells["Code"].Value.ToString();
+            dlg.textBoxCount.Text = dataGridViewTactical.SelectedRows[0].Cells["DealCount"].Value.ToString();
+            dlg.textBoxType.Text = "UnderWeight";
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                decimal price = Convert.ToDecimal(dlg.textBoxPrice.Text);
+                uint count = Convert.ToUInt16(dlg.textBoxCount.Text);
+                StockPool.LongTermTableDataTable dt = (StockPool.LongTermTableDataTable)dataGridViewLongTerm.DataSource;
+                StockPool.LongTermTableRow row = (StockPool.LongTermTableRow)dt.Select("Name=" + dlg.textBoxName.Text)[0];
+                decimal profit = (price - row.CostPrice) * count;
+                row.AvailableCash += price * count;
+                m_statData.TacticalProfit += profit;                
+                m_statData.LongTermLeftCash += price * count; //real left cash
+
+                //delete tactical record
+                DeleteFromStockPool(dataGridViewTactical, dataGridViewTactical.SelectedRows[0].Index);
+
+                //insert deal record
+                DealRecordData data = new DealRecordData();
+                data.Name = dlg.textBoxName.Text;
+                data.Type = dlg.textBoxType.Text;
+                data.Price = dlg.textBoxPrice.Text;
+                data.Count = dlg.textBoxCount.Text;
+                data.Pool = "TacticalPool";
+                data.Profit = dlg.sellprofit.ToString();
+                InsertDealRecord(data);
+            }
+        }
+
+        private void underPositionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.tabControl1.SelectedIndex != 1)
+                return;
+
+
+        }
+
+        private void overweightToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (this.tabControl1.SelectedIndex != 1)
+                return;
+
+            DealDlg dlg = new DealDlg();
+            dlg.textBoxName.Text = dataGridViewLongTerm.SelectedRows[0].Cells["Name"].Value.ToString();
+            dlg.textBoxNumber.Text = dataGridViewLongTerm.SelectedRows[0].Cells["Code"].Value.ToString();
+            dlg.textBoxType.Text = "OverWeight";
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                //update stock available cash in long term pool
+                decimal price = Convert.ToDecimal(dlg.textBoxPrice.Text);
+                uint count = Convert.ToUInt16(dlg.textBoxCount.Text);
+                StockPool.LongTermTableDataTable dt = (StockPool.LongTermTableDataTable)dataGridViewLongTerm.DataSource;
+                StockPool.LongTermTableRow row = (StockPool.LongTermTableRow)dt.Rows[dataGridViewLongTerm.SelectedRows[0].Index];
+                row.AvailableCash -= price * count;
+                m_statData.LongTermLeftCash -= price * count;
+
+                //insert tactical record
+                InsertTacticalPool(dlg,-1);
+
+                //insert deal record
+                DealRecordData data = new DealRecordData();
+                data.Name = dlg.textBoxName.Text;
+                data.Type = dlg.textBoxType.Text;
+                data.Price = dlg.textBoxPrice.Text;
+                data.Count = dlg.textBoxCount.Text;
+                data.Pool = "TacticalPool";
+                data.Profit = dlg.sellprofit.ToString();
+                InsertDealRecord(data);
+            }
+        }
+
+        private void currentStatusToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            StatisticInfo dlg = new StatisticInfo();
+            //refresh current data
+            RefreshObservedPool();
+            RefreshLongTermPool();
+            RefreshShortTermPool();
+            RefreshTacticalPool();
+            //calculate statistic data            
+            decimal longtermprofit = m_statData.LongTermProfit;
+            decimal shorttermprofit = m_statData.ShortTermProfit;
+            decimal tacticalprofit = m_statData.TacticalProfit;
+
+            StockPool.LongTermTableDataTable longdt = (StockPool.LongTermTableDataTable)dataGridViewObserved.DataSource;
+            foreach (StockPool.LongTermTableRow row in longdt.Rows)
+            {
+                m_statData.LongTermValue += row.CurrentPrice * row.Amount;
+                longtermprofit += (row.CurrentPrice - row.CostPrice) * row.Amount;                
+            }
+            StockPool.TacticalTableDataTable tacticaldt = (StockPool.TacticalTableDataTable)dataGridViewTactical.DataSource;
+            foreach (StockPool.TacticalTableRow row in tacticaldt.Rows)
+            {
+                m_statData.TacticalValue += row.CurrentPrice * row.DealCount;
+                tacticalprofit += (row.CurrentPrice - row.CostPrice) * row.DealCount;
+            }
+            StockPool.ShortTermTableDataTable shortdt = (StockPool.ShortTermTableDataTable)dataGridViewTactical.DataSource;
+            foreach (StockPool.ShortTermTableRow row in shortdt.Rows)
+            {
+                m_statData.ShortTermValue += row.CurrentPrice * row.Amount;
+                shorttermprofit += (row.CurrentPrice - row.CostPrice) * row.Amount;
+            }
+
+            //display
+            dlg.textBoxLongTermValue.Text = m_statData.LongTermValue.ToString();
+            dlg.textBoxLongProfit.Text = longtermprofit.ToString();
+            dlg.textBoxLongLeftCash.Text = m_statData.LongTermLeftCash.ToString();
+            dlg.textBoxLongAvailable.Text = m_statData.LongTermAvailableCash.ToString();
+            dlg.textBoxTacticalValue.Text = m_statData.TacticalValue.ToString();
+            dlg.textBoxTacticalProfit.Text = tacticalprofit.ToString();
+            dlg.textBoxShortValue.Text = m_statData.ShortTermValue.ToString();
+            dlg.textBoxShortProfit.Text = shorttermprofit.ToString();
+            dlg.textBoxShortLeft.Text = m_statData.ShortTermLeftCash.ToString();
+            dlg.textBoxTotalLeft.Text = (m_statData.LongTermLeftCash + m_statData.ShortTermLeftCash).ToString();
+            m_statData.TotalAsset = m_statData.LongTermLeftCash + m_statData.ShortTermLeftCash + m_statData.LongTermValue + m_statData.TacticalValue + m_statData.ShortTermValue;
+            dlg.textBoxTotalAsset.Text = m_statData.TotalAsset.ToString();
+            m_statData.TotalProfit = longtermprofit + tacticalprofit + shorttermprofit;
+            dlg.textBoxTotalProfit.Text = m_statData.TotalProfit.ToString();
+            dlg.textBoxCostCash.Text = m_statData.CostCash.ToString();
+            dlg.textBoxNetCount.Text = m_statData.curNetCount.ToString();
+            m_statData.curNetValue = m_statData.TotalAsset / m_statData.curNetCount;
+            dlg.textBoxNetValue.Text = m_statData.curNetValue.ToString();
+            dlg.ShowDialog();
+        }
+
+        private void historyNetValueToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //add record if this is of new day
+            AssetDS.NetValueDTDataTable dt = NetAssetdataset.NetValueDT;
+            AssetDS.NetValueDTRow row = dt.NewNetValueDTRow();
+            row.Date = DateTime.Now.ToString("yyyy-MM-dd");
+            row.NetAsset = m_statData.TotalAsset;
+            row.NetCount = m_statData.curNetCount;
+            row.NetValue = m_statData.curNetValue;
+
+            DataRow findrow = dt.Rows.Find(row.Date);
+            if (findrow == null)
+                dt.Rows.Add(row);
+
+            NetValue chartform = new NetValue();
+            chartform.chart1.DataSource = NetAssetdataset.NetValueDT;
+            chartform.chart1.Series[0].XValueMember = "Date";
+            chartform.chart1.Series[0].YValueMembers = "NetValue";
+            chartform.chart1.DataBind();
+            chartform.Show();
+        }
        
 
         

@@ -413,11 +413,13 @@ namespace StockAssistant {
             
             private global::System.Data.DataColumn columnCurrentPrice;
             
-            private global::System.Data.DataColumn columnBuyNumber;
+            private global::System.Data.DataColumn column60DayPrice;
             
-            private global::System.Data.DataColumn columnPosition;
+            private global::System.Data.DataColumn columnAmount;
             
             private global::System.Data.DataColumn columnIncrease;
+            
+            private global::System.Data.DataColumn columnAvailableCash;
             
             private global::System.Data.DataColumn columnClassType;
             
@@ -497,17 +499,17 @@ namespace StockAssistant {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn BuyNumberColumn {
+            public global::System.Data.DataColumn _60DayPriceColumn {
                 get {
-                    return this.columnBuyNumber;
+                    return this.column60DayPrice;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn PositionColumn {
+            public global::System.Data.DataColumn AmountColumn {
                 get {
-                    return this.columnPosition;
+                    return this.columnAmount;
                 }
             }
             
@@ -516,6 +518,14 @@ namespace StockAssistant {
             public global::System.Data.DataColumn IncreaseColumn {
                 get {
                     return this.columnIncrease;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn AvailableCashColumn {
+                get {
+                    return this.columnAvailableCash;
                 }
             }
             
@@ -564,16 +574,17 @@ namespace StockAssistant {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public LongTermTableRow AddLongTermTableRow(string Name, string Code, decimal CostPrice, decimal CurrentPrice, uint BuyNumber, ushort Position, decimal Increase, string ClassType) {
+            public LongTermTableRow AddLongTermTableRow(string Name, string Code, decimal CostPrice, decimal CurrentPrice, decimal _60DayPrice, uint Amount, decimal Increase, decimal AvailableCash, string ClassType) {
                 LongTermTableRow rowLongTermTableRow = ((LongTermTableRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Name,
                         Code,
                         CostPrice,
                         CurrentPrice,
-                        BuyNumber,
-                        Position,
+                        _60DayPrice,
+                        Amount,
                         Increase,
+                        AvailableCash,
                         ClassType};
                 rowLongTermTableRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowLongTermTableRow);
@@ -582,16 +593,17 @@ namespace StockAssistant {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public LongTermTableRow AddLongTermTableRow(string Name, string Code, decimal CostPrice, decimal CurrentPrice, uint BuyNumber, ushort Position, string ClassType) {
+            public LongTermTableRow AddLongTermTableRow(string Name, string Code, decimal CostPrice, decimal CurrentPrice, decimal _60DayPrice, uint Amount, decimal AvailableCash, string ClassType) {
                 LongTermTableRow rowLongTermTableRow = ((LongTermTableRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Name,
                         Code,
                         CostPrice,
                         CurrentPrice,
-                        BuyNumber,
-                        Position,
+                        _60DayPrice,
+                        Amount,
                         null,
+                        AvailableCash,
                         ClassType};
                 rowLongTermTableRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowLongTermTableRow);
@@ -619,9 +631,10 @@ namespace StockAssistant {
                 this.columnCode = base.Columns["Code"];
                 this.columnCostPrice = base.Columns["CostPrice"];
                 this.columnCurrentPrice = base.Columns["CurrentPrice"];
-                this.columnBuyNumber = base.Columns["BuyNumber"];
-                this.columnPosition = base.Columns["Position"];
+                this.column60DayPrice = base.Columns["60DayPrice"];
+                this.columnAmount = base.Columns["Amount"];
                 this.columnIncrease = base.Columns["Increase"];
+                this.columnAvailableCash = base.Columns["AvailableCash"];
                 this.columnClassType = base.Columns["ClassType"];
             }
             
@@ -636,12 +649,16 @@ namespace StockAssistant {
                 base.Columns.Add(this.columnCostPrice);
                 this.columnCurrentPrice = new global::System.Data.DataColumn("CurrentPrice", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnCurrentPrice);
-                this.columnBuyNumber = new global::System.Data.DataColumn("BuyNumber", typeof(uint), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnBuyNumber);
-                this.columnPosition = new global::System.Data.DataColumn("Position", typeof(ushort), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPosition);
+                this.column60DayPrice = new global::System.Data.DataColumn("60DayPrice", typeof(decimal), null, global::System.Data.MappingType.Element);
+                this.column60DayPrice.ExtendedProperties.Add("Generator_ColumnVarNameInTable", "column60DayPrice");
+                this.column60DayPrice.ExtendedProperties.Add("Generator_UserColumnName", "60DayPrice");
+                base.Columns.Add(this.column60DayPrice);
+                this.columnAmount = new global::System.Data.DataColumn("Amount", typeof(uint), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAmount);
                 this.columnIncrease = new global::System.Data.DataColumn("Increase", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnIncrease);
+                this.columnAvailableCash = new global::System.Data.DataColumn("AvailableCash", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAvailableCash);
                 this.columnClassType = new global::System.Data.DataColumn("ClassType", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnClassType);
                 this.columnName.AllowDBNull = false;
@@ -795,10 +812,6 @@ namespace StockAssistant {
             
             private global::System.Data.DataColumn columnCurrentPrice;
             
-            private global::System.Data.DataColumn column60DayPrice;
-            
-            private global::System.Data.DataColumn columnAvailableNumber;
-            
             private global::System.Data.DataColumn columnIncrease;
             
             private global::System.Data.DataColumn columnDealCount;
@@ -879,22 +892,6 @@ namespace StockAssistant {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn _60DayPriceColumn {
-                get {
-                    return this.column60DayPrice;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn AvailableNumberColumn {
-                get {
-                    return this.columnAvailableNumber;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public global::System.Data.DataColumn IncreaseColumn {
                 get {
                     return this.columnIncrease;
@@ -946,15 +943,13 @@ namespace StockAssistant {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public TacticalTableRow AddTacticalTableRow(LongTermTableRow parentLongTermTableRowByLongTermTable_TacticalTable, string Code, decimal CostPrice, decimal CurrentPrice, decimal _60DayPrice, uint AvailableNumber, decimal Increase, uint DealCount) {
+            public TacticalTableRow AddTacticalTableRow(LongTermTableRow parentLongTermTableRowByLongTermTable_TacticalTable, string Code, decimal CostPrice, decimal CurrentPrice, decimal Increase, uint DealCount) {
                 TacticalTableRow rowTacticalTableRow = ((TacticalTableRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         Code,
                         CostPrice,
                         CurrentPrice,
-                        _60DayPrice,
-                        AvailableNumber,
                         Increase,
                         DealCount};
                 if ((parentLongTermTableRowByLongTermTable_TacticalTable != null)) {
@@ -967,15 +962,13 @@ namespace StockAssistant {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public TacticalTableRow AddTacticalTableRow(LongTermTableRow parentLongTermTableRowByLongTermTable_TacticalTable, string Code, decimal CostPrice, decimal CurrentPrice, decimal _60DayPrice, uint AvailableNumber, uint DealCount) {
+            public TacticalTableRow AddTacticalTableRow(LongTermTableRow parentLongTermTableRowByLongTermTable_TacticalTable, string Code, decimal CostPrice, decimal CurrentPrice, uint DealCount) {
                 TacticalTableRow rowTacticalTableRow = ((TacticalTableRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         Code,
                         CostPrice,
                         CurrentPrice,
-                        _60DayPrice,
-                        AvailableNumber,
                         null,
                         DealCount};
                 if ((parentLongTermTableRowByLongTermTable_TacticalTable != null)) {
@@ -1007,8 +1000,6 @@ namespace StockAssistant {
                 this.columnCode = base.Columns["Code"];
                 this.columnCostPrice = base.Columns["CostPrice"];
                 this.columnCurrentPrice = base.Columns["CurrentPrice"];
-                this.column60DayPrice = base.Columns["60DayPrice"];
-                this.columnAvailableNumber = base.Columns["AvailableNumber"];
                 this.columnIncrease = base.Columns["Increase"];
                 this.columnDealCount = base.Columns["DealCount"];
             }
@@ -1024,12 +1015,6 @@ namespace StockAssistant {
                 base.Columns.Add(this.columnCostPrice);
                 this.columnCurrentPrice = new global::System.Data.DataColumn("CurrentPrice", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnCurrentPrice);
-                this.column60DayPrice = new global::System.Data.DataColumn("60DayPrice", typeof(decimal), null, global::System.Data.MappingType.Element);
-                this.column60DayPrice.ExtendedProperties.Add("Generator_ColumnVarNameInTable", "column60DayPrice");
-                this.column60DayPrice.ExtendedProperties.Add("Generator_UserColumnName", "60DayPrice");
-                base.Columns.Add(this.column60DayPrice);
-                this.columnAvailableNumber = new global::System.Data.DataColumn("AvailableNumber", typeof(uint), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnAvailableNumber);
                 this.columnIncrease = new global::System.Data.DataColumn("Increase", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnIncrease);
                 this.columnDealCount = new global::System.Data.DataColumn("DealCount", typeof(uint), null, global::System.Data.MappingType.Element);
@@ -1183,7 +1168,7 @@ namespace StockAssistant {
             
             private global::System.Data.DataColumn columnCurrentPrice;
             
-            private global::System.Data.DataColumn columnBuyNumber;
+            private global::System.Data.DataColumn columnAmount;
             
             private global::System.Data.DataColumn columnIncrease;
             
@@ -1263,9 +1248,9 @@ namespace StockAssistant {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn BuyNumberColumn {
+            public global::System.Data.DataColumn AmountColumn {
                 get {
-                    return this.columnBuyNumber;
+                    return this.columnAmount;
                 }
             }
             
@@ -1314,14 +1299,14 @@ namespace StockAssistant {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ShortTermTableRow AddShortTermTableRow(string Name, string Code, decimal CostPrice, decimal CurrentPrice, uint BuyNumber, decimal Increase) {
+            public ShortTermTableRow AddShortTermTableRow(string Name, string Code, decimal CostPrice, decimal CurrentPrice, uint Amount, decimal Increase) {
                 ShortTermTableRow rowShortTermTableRow = ((ShortTermTableRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Name,
                         Code,
                         CostPrice,
                         CurrentPrice,
-                        BuyNumber,
+                        Amount,
                         Increase};
                 rowShortTermTableRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowShortTermTableRow);
@@ -1330,14 +1315,14 @@ namespace StockAssistant {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ShortTermTableRow AddShortTermTableRow(string Name, string Code, decimal CostPrice, decimal CurrentPrice, uint BuyNumber) {
+            public ShortTermTableRow AddShortTermTableRow(string Name, string Code, decimal CostPrice, decimal CurrentPrice, uint Amount) {
                 ShortTermTableRow rowShortTermTableRow = ((ShortTermTableRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Name,
                         Code,
                         CostPrice,
                         CurrentPrice,
-                        BuyNumber,
+                        Amount,
                         null};
                 rowShortTermTableRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowShortTermTableRow);
@@ -1365,7 +1350,7 @@ namespace StockAssistant {
                 this.columnCode = base.Columns["Code"];
                 this.columnCostPrice = base.Columns["CostPrice"];
                 this.columnCurrentPrice = base.Columns["CurrentPrice"];
-                this.columnBuyNumber = base.Columns["BuyNumber"];
+                this.columnAmount = base.Columns["Amount"];
                 this.columnIncrease = base.Columns["Increase"];
             }
             
@@ -1380,8 +1365,8 @@ namespace StockAssistant {
                 base.Columns.Add(this.columnCostPrice);
                 this.columnCurrentPrice = new global::System.Data.DataColumn("CurrentPrice", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnCurrentPrice);
-                this.columnBuyNumber = new global::System.Data.DataColumn("BuyNumber", typeof(uint), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnBuyNumber);
+                this.columnAmount = new global::System.Data.DataColumn("Amount", typeof(uint), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAmount);
                 this.columnIncrease = new global::System.Data.DataColumn("Increase", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnIncrease);
                 this.columnIncrease.ReadOnly = true;
@@ -1532,7 +1517,7 @@ namespace StockAssistant {
             
             private global::System.Data.DataColumn columnExpectedPrice;
             
-            private global::System.Data.DataColumn columnPlanNumber;
+            private global::System.Data.DataColumn columnPlanAmount;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -1601,9 +1586,9 @@ namespace StockAssistant {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn PlanNumberColumn {
+            public global::System.Data.DataColumn PlanAmountColumn {
                 get {
-                    return this.columnPlanNumber;
+                    return this.columnPlanAmount;
                 }
             }
             
@@ -1644,14 +1629,14 @@ namespace StockAssistant {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ObservedTableRow AddObservedTableRow(string Name, string Code, decimal CurrentPrice, decimal ExpectedPrice, uint PlanNumber) {
+            public ObservedTableRow AddObservedTableRow(string Name, string Code, decimal CurrentPrice, decimal ExpectedPrice, uint PlanAmount) {
                 ObservedTableRow rowObservedTableRow = ((ObservedTableRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Name,
                         Code,
                         CurrentPrice,
                         ExpectedPrice,
-                        PlanNumber};
+                        PlanAmount};
                 rowObservedTableRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowObservedTableRow);
                 return rowObservedTableRow;
@@ -1678,7 +1663,7 @@ namespace StockAssistant {
                 this.columnCode = base.Columns["Code"];
                 this.columnCurrentPrice = base.Columns["CurrentPrice"];
                 this.columnExpectedPrice = base.Columns["ExpectedPrice"];
-                this.columnPlanNumber = base.Columns["PlanNumber"];
+                this.columnPlanAmount = base.Columns["PlanAmount"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1692,8 +1677,8 @@ namespace StockAssistant {
                 base.Columns.Add(this.columnCurrentPrice);
                 this.columnExpectedPrice = new global::System.Data.DataColumn("ExpectedPrice", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnExpectedPrice);
-                this.columnPlanNumber = new global::System.Data.DataColumn("PlanNumber", typeof(uint), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPlanNumber);
+                this.columnPlanAmount = new global::System.Data.DataColumn("PlanAmount", typeof(uint), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPlanAmount);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1890,33 +1875,33 @@ namespace StockAssistant {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public uint BuyNumber {
+            public decimal _60DayPrice {
                 get {
                     try {
-                        return ((uint)(this[this.tableLongTermTable.BuyNumberColumn]));
+                        return ((decimal)(this[this.tableLongTermTable._60DayPriceColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'BuyNumber\' in table \'LongTermTable\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'60DayPrice\' in table \'LongTermTable\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableLongTermTable.BuyNumberColumn] = value;
+                    this[this.tableLongTermTable._60DayPriceColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ushort Position {
+            public uint Amount {
                 get {
                     try {
-                        return ((ushort)(this[this.tableLongTermTable.PositionColumn]));
+                        return ((uint)(this[this.tableLongTermTable.AmountColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Position\' in table \'LongTermTable\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Amount\' in table \'LongTermTable\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableLongTermTable.PositionColumn] = value;
+                    this[this.tableLongTermTable.AmountColumn] = value;
                 }
             }
             
@@ -1933,6 +1918,22 @@ namespace StockAssistant {
                 }
                 set {
                     this[this.tableLongTermTable.IncreaseColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal AvailableCash {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableLongTermTable.AvailableCashColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'AvailableCash\' in table \'LongTermTable\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableLongTermTable.AvailableCashColumn] = value;
                 }
             }
             
@@ -1973,26 +1974,26 @@ namespace StockAssistant {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsBuyNumberNull() {
-                return this.IsNull(this.tableLongTermTable.BuyNumberColumn);
+            public bool Is_60DayPriceNull() {
+                return this.IsNull(this.tableLongTermTable._60DayPriceColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetBuyNumberNull() {
-                this[this.tableLongTermTable.BuyNumberColumn] = global::System.Convert.DBNull;
+            public void Set_60DayPriceNull() {
+                this[this.tableLongTermTable._60DayPriceColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsPositionNull() {
-                return this.IsNull(this.tableLongTermTable.PositionColumn);
+            public bool IsAmountNull() {
+                return this.IsNull(this.tableLongTermTable.AmountColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetPositionNull() {
-                this[this.tableLongTermTable.PositionColumn] = global::System.Convert.DBNull;
+            public void SetAmountNull() {
+                this[this.tableLongTermTable.AmountColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2005,6 +2006,18 @@ namespace StockAssistant {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetIncreaseNull() {
                 this[this.tableLongTermTable.IncreaseColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsAvailableCashNull() {
+                return this.IsNull(this.tableLongTermTable.AvailableCashColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetAvailableCashNull() {
+                this[this.tableLongTermTable.AvailableCashColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2094,38 +2107,6 @@ namespace StockAssistant {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public decimal _60DayPrice {
-                get {
-                    try {
-                        return ((decimal)(this[this.tableTacticalTable._60DayPriceColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'60DayPrice\' in table \'TacticalTable\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableTacticalTable._60DayPriceColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public uint AvailableNumber {
-                get {
-                    try {
-                        return ((uint)(this[this.tableTacticalTable.AvailableNumberColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'AvailableNumber\' in table \'TacticalTable\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableTacticalTable.AvailableNumberColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public decimal Increase {
                 get {
                     try {
@@ -2201,30 +2182,6 @@ namespace StockAssistant {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetCurrentPriceNull() {
                 this[this.tableTacticalTable.CurrentPriceColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool Is_60DayPriceNull() {
-                return this.IsNull(this.tableTacticalTable._60DayPriceColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void Set_60DayPriceNull() {
-                this[this.tableTacticalTable._60DayPriceColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsAvailableNumberNull() {
-                return this.IsNull(this.tableTacticalTable.AvailableNumberColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetAvailableNumberNull() {
-                this[this.tableTacticalTable.AvailableNumberColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2332,17 +2289,17 @@ namespace StockAssistant {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public uint BuyNumber {
+            public uint Amount {
                 get {
                     try {
-                        return ((uint)(this[this.tableShortTermTable.BuyNumberColumn]));
+                        return ((uint)(this[this.tableShortTermTable.AmountColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'BuyNumber\' in table \'ShortTermTable\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Amount\' in table \'ShortTermTable\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableShortTermTable.BuyNumberColumn] = value;
+                    this[this.tableShortTermTable.AmountColumn] = value;
                 }
             }
             
@@ -2412,14 +2369,14 @@ namespace StockAssistant {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsBuyNumberNull() {
-                return this.IsNull(this.tableShortTermTable.BuyNumberColumn);
+            public bool IsAmountNull() {
+                return this.IsNull(this.tableShortTermTable.AmountColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetBuyNumberNull() {
-                this[this.tableShortTermTable.BuyNumberColumn] = global::System.Convert.DBNull;
+            public void SetAmountNull() {
+                this[this.tableShortTermTable.AmountColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2515,17 +2472,17 @@ namespace StockAssistant {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public uint PlanNumber {
+            public uint PlanAmount {
                 get {
                     try {
-                        return ((uint)(this[this.tableObservedTable.PlanNumberColumn]));
+                        return ((uint)(this[this.tableObservedTable.PlanAmountColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'PlanNumber\' in table \'ObservedTable\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'PlanAmount\' in table \'ObservedTable\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableObservedTable.PlanNumberColumn] = value;
+                    this[this.tableObservedTable.PlanAmountColumn] = value;
                 }
             }
             
@@ -2579,14 +2536,14 @@ namespace StockAssistant {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsPlanNumberNull() {
-                return this.IsNull(this.tableObservedTable.PlanNumberColumn);
+            public bool IsPlanAmountNull() {
+                return this.IsNull(this.tableObservedTable.PlanAmountColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetPlanNumberNull() {
-                this[this.tableObservedTable.PlanNumberColumn] = global::System.Convert.DBNull;
+            public void SetPlanAmountNull() {
+                this[this.tableObservedTable.PlanAmountColumn] = global::System.Convert.DBNull;
             }
         }
         
